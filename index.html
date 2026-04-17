@@ -146,10 +146,11 @@
                     priceText = "Phí Việt Hoá: <span>" + priceMatch[2].toLowerCase() + "</span>";
                 }
 
-                // CẬP NHẬT: Tìm link Google Drive hoặc bit.ly
+                // XỬ LÝ LINK CHÍNH XÁC: Loại bỏ các thẻ HTML dính liền
                 let downloadLink = "";
-                const driveMatch = content.match(/https:\/\/drive\.google\.com\/[^\s"']+/);
-                const bitlyMatch = content.match(/https:\/\/bit\.ly\/[^\s"']+/);
+                // Sử dụng [^<"\s]+ để dừng lại ngay khi gặp dấu < (thẻ HTML), dấu ngoặc kép hoặc khoảng trắng
+                const driveMatch = content.match(/https:\/\/drive\.google\.com\/[^<"\s]+/);
+                const bitlyMatch = content.match(/https:\/\/bit\.ly\/[^<"\s]+/);
                 
                 if (driveMatch) {
                     downloadLink = driveMatch[0].replace(/&amp;/g, '&');
