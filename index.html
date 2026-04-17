@@ -2,63 +2,136 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Font Việt Linh - Premium Fonts</title>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        :root { --google-blue: #4285F4; --bg: #f8f9fa; }
+        :root { --google-blue: #4285F4; --bg: #f8f9fa; --vip-gold: #f4b400; }
         body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--bg); margin: 0; padding: 0; }
-        header { background: #fff; padding: 40px 20px; text-align: center; border-bottom: 1px solid #ddd; }
-        h1 { color: var(--google-blue); margin: 0; font-size: 32px; }
-        .font-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; padding: 40px; max-width: 1200px; margin: 0 auto; }
-        .font-card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: 0.3s; border: 1px solid #eee; }
+        
+        header { background: #fff; padding: 20px; text-align: center; border-bottom: 1px solid #ddd; position: sticky; top: 0; z-index: 100; }
+        h1 { color: var(--google-blue); margin: 0 0 15px 0; font-size: 24px; text-transform: uppercase; }
+        
+        /* Thanh tìm kiếm */
+        .search-container { max-width: 500px; margin: 0 auto; display: flex; border: 1px solid #dfe1e5; border-radius: 24px; padding: 8px 20px; background: #fff; }
+        .search-container input { border: none; outline: none; width: 100%; font-size: 14px; }
+
+        /* Menu danh mục */
+        nav { background: #fff; padding: 10px; text-align: center; border-bottom: 1px solid #eee; overflow-x: auto; white-space: nowrap; }
+        nav a { margin: 0 10px; text-decoration: none; color: #555; font-size: 13px; font-weight: 600; cursor: pointer; }
+        nav a:hover { color: var(--google-blue); }
+
+        .font-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; padding: 30px 20px; max-width: 1200px; margin: 0 auto; }
+        .font-card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: 0.3s; border: 1px solid #eee; position: relative; }
         .font-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-color: var(--google-blue); }
+        
+        .badge-vip { position: absolute; top: 10px; right: 10px; background: var(--vip-gold); color: #fff; padding: 4px 10px; border-radius: 6px; font-size: 10px; font-weight: bold; }
         .font-img { width: 100%; height: 180px; object-fit: cover; background: #eee; }
         .font-info { padding: 15px; text-align: center; }
-        .font-title { font-weight: 600; font-size: 16px; color: #202124; height: 40px; overflow: hidden; }
-        .btn-download { background: var(--google-blue); color: #fff; padding: 8px 20px; border-radius: 20px; text-decoration: none; font-size: 13px; display: inline-block; margin-top: 10px; }
+        .font-title { font-weight: 600; font-size: 15px; color: #202124; height: 40px; overflow: hidden; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; }
+        .btn-download { background: var(--google-blue); color: #fff; padding: 8px 20px; border-radius: 20px; text-decoration: none; font-size: 13px; }
+
+        .load-more-container { text-align: center; padding: 30px; }
+        #load-more-btn { background: #fff; border: 1px solid var(--google-blue); color: var(--google-blue); padding: 10px 25px; border-radius: 25px; cursor: pointer; font-weight: 600; }
     </style>
 </head>
 <body>
+
     <header>
-        <h1>FONT VIỆT LINH</h1>
-        <p>Kho font chữ Việt hóa chuyên nghiệp</p>
+        <h1>Font Việt Linh</h1>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Tìm tên font..." onkeypress="handleSearch(event)">
+        </div>
     </header>
 
-    <div class="font-grid" id="font-container">
-        <p style="text-align:center; grid-column: 1/-1;">Đang tải dữ liệu font...</p>
+    <nav id="category-nav">
+        <a onclick="loadByLabel('')">Tất cả</a>
+        <a onclick="loadByLabel('Font Việt hóa')">Việt hóa</a>
+        <a onclick="loadByLabel('Font viết tay')">Viết tay</a>
+        <a onclick="loadByLabel('Font VIP')">Font VIP</a>
+        <a onclick="loadByLabel('Font thiết kế')">Thiết kế</a>
+    </nav>
+
+    <div class="font-grid" id="font-container"></div>
+
+    <div class="load-more-container">
+        <button id="load-more-btn" onclick="fetchPosts()">XEM THÊM FONT</button>
     </div>
 
     <script>
-        // THAY ID BLOG CỦA LINH VÀO ĐÂY
-        const blogId = "5243210247122196079"; 
-        
-        function loadFonts(data) {
-            const container = document.getElementById('font-container');
-            container.innerHTML = '';
-            const posts = data.feed.entry;
+        const blogId = "5243210247122196079";
+        let startIndex = 1;
+        const maxResults = 24;
+        let currentLabel = '';
+        let currentSearch = '';
+
+        function fetchPosts() {
+            const script = document.createElement('script');
+            let url = `https://www.blogger.com/feeds/${blogId}/posts/default?alt=json-in-script&callback=render&start-index=${startIndex}&max-results=${maxResults}`;
             
-            posts.forEach(post => {
+            if (currentLabel) url = `https://www.blogger.com/feeds/${blogId}/posts/default/-/${currentLabel}?alt=json-in-script&callback=render&start-index=${startIndex}&max-results=${maxResults}`;
+            if (currentSearch) url += `&q=${currentSearch}`;
+
+            script.src = url;
+            document.body.appendChild(script);
+        }
+
+        function render(data) {
+            const container = document.getElementById('font-container');
+            if (!data.feed.entry) {
+                document.getElementById('load-more-btn').innerText = "Hết dữ liệu";
+                return;
+            }
+
+            data.feed.entry.forEach(post => {
                 const title = post.title.$t;
                 const link = post.link.find(l => l.rel === 'alternate').href;
-                // Lấy ảnh đầu tiên trong bài viết làm thumbnail
+                const labels = post.category ? post.category.map(c => c.term) : [];
+                const isVip = labels.some(l => l.toUpperCase().includes('VIP') || l.includes('Trả phí'));
+                
                 let img = "https://via.placeholder.com/300x180?text=Font+Viet+Linh";
                 if (post.content.$t.includes('<img')) {
-                    const src = post.content.$t.match(/src="([^"]+)"/)[1];
-                    img = src;
+                    const match = post.content.$t.match(/src="([^"]+)"/);
+                    if (match) img = match[1];
                 }
 
                 container.innerHTML += `
                     <div class="font-card">
+                        ${isVip ? '<div class="badge-vip">PREMIUM</div>' : ''}
                         <img src="${img}" class="font-img" alt="${title}">
                         <div class="font-info">
                             <div class="font-title">${title}</div>
-                            <a href="${link}" class="btn-download">Xem & Tải về</a>
+                            <a href="${link}" class="btn-download">Tải ngay</a>
                         </div>
                     </div>
                 `;
             });
+            startIndex += maxResults;
         }
+
+        function loadByLabel(label) {
+            currentLabel = label;
+            currentSearch = '';
+            resetAndFetch();
+        }
+
+        function handleSearch(e) {
+            if (e.key === 'Enter') {
+                currentSearch = document.getElementById('searchInput').value;
+                currentLabel = '';
+                resetAndFetch();
+            }
+        }
+
+        function resetAndFetch() {
+            document.getElementById('font-container').innerHTML = '';
+            startIndex = 1;
+            document.getElementById('load-more-btn').innerText = "XEM THÊM FONT";
+            fetchPosts();
+        }
+
+        // Khởi tạo lần đầu
+        fetchPosts();
     </script>
-    <script src="https://fontvietlinh.blogspot.com/feeds/posts/default?alt=json-in-script&callback=loadFonts&max-results=50"></script>
 </body>
 </html>
