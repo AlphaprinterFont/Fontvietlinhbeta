@@ -6,44 +6,86 @@
     <title>Font Việt Linh - Premium Fonts</title>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        :root { --google-blue: #4285F4; --bg: #f8f9fa; --vip-gold: #f4b400; --vip-red: #d93025; }
-        body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--bg); margin: 0; padding: 0; }
-        
-        header { background: #fff; padding: 20px; text-align: center; border-bottom: 1px solid #ddd; position: sticky; top: 0; z-index: 100; }
-        h1 { color: var(--google-blue); margin: 0 0 15px 0; font-size: 24px; text-transform: uppercase; letter-spacing: 1px; }
-        
-        .search-container { max-width: 500px; margin: 0 auto; display: flex; border: 1px solid #dfe1e5; border-radius: 24px; padding: 8px 20px; background: #fff; }
-        .search-container input { border: none; outline: none; width: 100%; font-size: 14px; }
+        /* ĐỊNH NGHĨA BIẾN MÀU CHO 3 GIAO DIỆN */
+        :root { 
+            --google-blue: #4285F4; 
+            --vip-gold: #f4b400; 
+            --vip-red: #d93025;
+            /* Mặc định: Giao diện Trắng */
+            --bg: #ffffff; 
+            --card-bg: #ffffff;
+            --text-main: #202124;
+            --text-sub: #5f6368;
+            --border: #dfe1e5;
+            --header-bg: #ffffff;
+        }
 
-        nav { background: #fff; padding: 10px; text-align: center; border-bottom: 1px solid #eee; overflow-x: auto; white-space: nowrap; }
-        nav a { margin: 0 12px; text-decoration: none; color: #555; font-size: 13px; font-weight: 600; cursor: pointer; transition: 0.3s; display: inline-block; }
+        /* GIAO DIỆN XANH */
+        [data-theme='blue'] {
+            --bg: #e8f0fe;
+            --card-bg: #ffffff;
+            --text-main: #174ea6;
+            --header-bg: #4285F4;
+            --header-text: #ffffff;
+        }
+
+        /* GIAO DIỆN ĐEN (DARK MODE) */
+        [data-theme='dark'] {
+            --bg: #202124;
+            --card-bg: #303134;
+            --text-main: #e8eaed;
+            --text-sub: #bdc1c6;
+            --border: #3c4043;
+            --header-bg: #171717;
+        }
+
+        body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--bg); color: var(--text-main); margin: 0; padding: 0; transition: 0.3s; }
+        
+        header { background: var(--header-bg); padding: 20px; text-align: center; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; color: var(--header-text, var(--google-blue)); }
+        h1 { margin: 0 0 15px 0; font-size: 24px; text-transform: uppercase; letter-spacing: 1px; }
+        
+        /* Bộ chuyển đổi màu */
+        .theme-switcher { margin-bottom: 15px; display: flex; justify-content: center; gap: 10px; }
+        .theme-btn { width: 25px; height: 25px; border-radius: 50%; border: 2px solid #ddd; cursor: pointer; transition: 0.2s; }
+        .theme-btn:hover { transform: scale(1.2); }
+        .btn-white { background: #ffffff; }
+        .btn-blue { background: #4285F4; }
+        .btn-dark { background: #202124; }
+
+        .search-container { max-width: 500px; margin: 0 auto; display: flex; border: 1px solid var(--border); border-radius: 24px; padding: 8px 20px; background: #fff; }
+        .search-container input { border: none; outline: none; width: 100%; font-size: 14px; color: #000; }
+
+        nav { background: var(--card-bg); padding: 10px; text-align: center; border-bottom: 1px solid var(--border); overflow-x: auto; white-space: nowrap; }
+        nav a { margin: 0 12px; text-decoration: none; color: var(--text-sub); font-size: 13px; font-weight: 600; cursor: pointer; transition: 0.3s; display: inline-block; }
         nav a:hover, nav a.active { color: var(--google-blue); }
         .nav-external { color: var(--vip-red) !important; }
 
         .font-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; padding: 30px 20px; max-width: 1200px; margin: 0 auto; }
-        .font-card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: 0.3s; border: 1px solid #eee; position: relative; }
-        .font-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-color: var(--google-blue); }
+        .font-card { background: var(--card-bg); border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: 0.3s; border: 1px solid var(--border); position: relative; }
+        .font-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); border-color: var(--google-blue); }
         
         .badge-vip { position: absolute; top: 10px; right: 10px; background: var(--vip-gold); color: #fff; padding: 4px 10px; border-radius: 6px; font-size: 10px; font-weight: bold; z-index: 1; }
         
-        .font-img { width: 100%; height: 180px; object-fit: cover; background: #eee; border-bottom: 1px solid #f1f1f1; }
+        .font-img { width: 100%; height: 180px; object-fit: cover; background: #eee; border-bottom: 1px solid var(--border); }
         .font-info { padding: 15px; text-align: center; }
-        .font-title { font-weight: 600; font-size: 15px; color: #202124; height: 40px; overflow: hidden; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; line-height: 1.4; }
+        .font-title { font-weight: 600; font-size: 15px; color: var(--text-main); height: 40px; overflow: hidden; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; }
         
-        /* Nút bấm tùy biến */
         .btn-download { color: #fff; padding: 9px 22px; border-radius: 20px; text-decoration: none; font-size: 13px; font-weight: 500; display: inline-block; transition: 0.3s; }
         .btn-free { background: var(--google-blue); }
-        .btn-free:hover { background: #1a73e8; box-shadow: 0 4px 12px rgba(66,133,244,0.3); }
         .btn-paid { background: var(--vip-red); }
-        .btn-paid:hover { background: #b21f16; box-shadow: 0 4px 12px rgba(217,48,37,0.3); }
 
         .load-more-container { text-align: center; padding: 40px; }
-        #load-more-btn { background: #fff; border: 1px solid var(--google-blue); color: var(--google-blue); padding: 12px 30px; border-radius: 25px; cursor: pointer; font-weight: 600; }
+        #load-more-btn { background: var(--card-bg); border: 1px solid var(--google-blue); color: var(--google-blue); padding: 12px 30px; border-radius: 25px; cursor: pointer; font-weight: 600; }
     </style>
 </head>
 <body>
 
     <header>
+        <div class="theme-switcher">
+            <div class="theme-btn btn-white" onclick="setTheme('white')" title="Giao diện Trắng"></div>
+            <div class="theme-btn btn-blue" onclick="setTheme('blue')" title="Giao diện Xanh"></div>
+            <div class="theme-btn btn-dark" onclick="setTheme('dark')" title="Giao diện Đen"></div>
+        </div>
         <h1>Font Việt Linh</h1>
         <div class="search-container">
             <input type="text" id="searchInput" placeholder="Tìm tên font..." onkeypress="handleSearch(event)">
@@ -54,9 +96,6 @@
         <a onclick="loadByLabel('')">Tất cả</a>
         <a onclick="loadByLabel('FontVietHoa')">Việt hóa</a>
         <a onclick="loadByLabel('FontTraPhi')">Font VIP</a>
-        <a onclick="loadByLabel('FontVietLinh')">Thiết kế</a>
-        <a href="https://www.facebook.com/FontVietLinh/posts/pfbid0MgsvYKxvMSTrqM5HR579RY4F2CHaqkPAJKk3Gz6UG4mTs8CtBpi7upVQbd7yHPJml" target="_blank" class="nav-external">Gói 4500 font</a>
-        <a href="https://www.facebook.com/FontVietLinh/posts/pfbid027H6LU65Y7EPfawKGMgxU3BzBZ24cocA5AT4aQATPKAaaXFaa8DcYLcPJrsh695Efl" target="_blank" class="nav-external">Gói Font T1-T6</a>
         <a href="https://www.facebook.com/FontVietLinh/" target="_blank">Liên hệ</a>
     </nav>
 
@@ -72,6 +111,16 @@
         const maxResults = 24;
         let currentLabel = '';
         let currentSearch = '';
+
+        // HÀM CHUYỂN ĐỔI GIAO DIỆN
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('font-linh-theme', theme);
+        }
+
+        // Tự động tải theme đã lưu
+        const savedTheme = localStorage.getItem('font-linh-theme') || 'white';
+        setTheme(savedTheme);
 
         function fetchPosts() {
             const script = document.createElement('script');
@@ -93,11 +142,7 @@
                 const title = post.title.$t;
                 const link = post.link.find(l => l.rel === 'alternate').href;
                 const labels = post.category ? post.category.map(c => c.term) : [];
-                
-                // Kiểm tra xem có phải Premium không
                 const isVip = labels.some(l => l === 'FontTraPhi' || l === 'FontVip' || l.toUpperCase().includes('VIP'));
-                
-                // Thiết lập chữ hiển thị và màu nút
                 const buttonText = isVip ? "Mua ngay" : "Tải ngay";
                 const buttonClass = isVip ? "btn-paid" : "btn-free";
 
