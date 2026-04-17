@@ -59,7 +59,7 @@
         
         .font-title { font-weight: 600; font-size: 15px; color: var(--text-main); margin-bottom: 5px; line-height: 1.4; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
         
-        /* Hiển thị giá tiền với chữ đ thường */
+        /* Hiển thị giá tiền hoặc trạng thái VIP */
         .font-price { color: var(--vip-red); font-weight: 700; font-size: 14px; margin-bottom: 15px; display: block; text-transform: lowercase; }
         .font-price::first-letter { text-transform: uppercase; }
 
@@ -138,17 +138,25 @@
                 const content = post.content.$t;
                 const labels = post.category ? post.category.map(c => c.term) : [];
                 
+                // Logic bóc tách giá và xác định loại font
                 let priceValue = "";
-                const priceMatch = content.match(/(Giá|Gia):\s*([0-9.kđĐ]+)/i);
+                let isPaidByText = false;
+
+                // Kiểm tra cụm từ khóa "Giá:" hoặc "Phí Việt hóa:"
+                const priceMatch = content.match(/(Giá|Gia|Phí Việt hóa|Phí Việt Hóa):\s*([0-9.kđĐ]+)/i);
+                
                 if (priceMatch) {
-                    priceValue = "Giá: " + priceMatch[2].toLowerCase();
+                    isPaidByText = true;
+                    // Lấy phần số tiền và đơn vị, ép về đ thường
+                    priceValue = "Font VIP: " + priceMatch[2].toLowerCase();
                 }
 
                 let driveLink = "";
                 const driveMatch = content.match(/https:\/\/drive\.google\.com\/[^\s"']+/);
                 if (driveMatch) driveLink = driveMatch[0].replace(/&amp;/g, '&');
 
-                const isVip = labels.some(l => l === 'FontTraPhi' || l === 'FontVip' || l.toUpperCase().includes('VIP'));
+                // Font được coi là VIP nếu có Label "FontTraPhi" HOẶC có cụm từ "Giá/Phí" trong nội dung
+                const isVip = labels.some(l => l === 'FontTraPhi' || l === 'FontVip' || l.toUpperCase().includes('VIP')) || isPaidByText;
                 
                 let finalLink = isVip ? `https://m.me/FontVietLinh?text=Tôi muốn mua font: ${title}` : (driveLink ? driveLink : blogLink);
                 const btnTxt = isVip ? "Mua ngay" : "Tải ngay";
