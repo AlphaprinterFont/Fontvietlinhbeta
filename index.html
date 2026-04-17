@@ -59,7 +59,7 @@
         
         .font-title { font-weight: 600; font-size: 15px; color: var(--text-main); margin-bottom: 5px; line-height: 1.4; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
         
-        /* Hiển thị phí Việt hoá với đ thường */
+        /* Hiển thị giá tiền */
         .font-price { color: var(--vip-red); font-weight: 700; font-size: 13px; margin-bottom: 15px; display: block; }
         .font-price span { text-transform: lowercase; }
 
@@ -141,13 +141,12 @@
                 let priceText = "";
                 let isPaid = false;
 
-                // Tìm các cụm từ phí trong bài viết
                 const priceMatch = content.match(/(Giá|Gia|Phí Việt hóa|Phí Việt Hóa):\s*([0-9.kđĐ]+)/i);
                 
                 if (priceMatch) {
                     isPaid = true;
-                    // Chuyển riêng phần số tiền/đơn vị sang viết thường để có chữ đ xinh
-                    priceText = "Phí Việt hoá: <span>" + priceMatch[2].toLowerCase() + "</span>";
+                    // Đổi thành Phí Việt Hoá (Viết hoa chữ H) và giữ đ thường
+                    priceText = "Phí Việt Hoá: <span>" + priceMatch[2].toLowerCase() + "</span>";
                 }
 
                 let driveLink = "";
@@ -172,7 +171,7 @@
                         <img src="${img}" class="font-img" alt="${title}" loading="lazy">
                         <div class="font-info">
                             <div class="font-title">${title}</div>
-                            <div class="font-price">${priceText ? priceText : 'miễn phí'}</div>
+                            <div class="font-price">${priceText ? priceText : 'Miễn phí'}</div>
                             <a href="${finalLink}" target="_blank" class="btn-download ${btnCls}">${btnTxt}</a>
                         </div>
                     </div>`;
