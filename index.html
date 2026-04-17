@@ -59,7 +59,6 @@
         
         .font-title { font-weight: 600; font-size: 15px; color: var(--text-main); margin-bottom: 5px; line-height: 1.4; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
         
-        /* Hiển thị giá tiền */
         .font-price { color: var(--vip-red); font-weight: 700; font-size: 13px; margin-bottom: 15px; display: block; }
         .font-price span { text-transform: lowercase; }
 
@@ -142,20 +141,25 @@
                 let isPaid = false;
 
                 const priceMatch = content.match(/(Giá|Gia|Phí Việt hóa|Phí Việt Hóa):\s*([0-9.kđĐ]+)/i);
-                
                 if (priceMatch) {
                     isPaid = true;
-                    // Đổi thành Phí Việt Hoá (Viết hoa chữ H) và giữ đ thường
                     priceText = "Phí Việt Hoá: <span>" + priceMatch[2].toLowerCase() + "</span>";
                 }
 
-                let driveLink = "";
+                // CẬP NHẬT: Tìm link Google Drive hoặc bit.ly
+                let downloadLink = "";
                 const driveMatch = content.match(/https:\/\/drive\.google\.com\/[^\s"']+/);
-                if (driveMatch) driveLink = driveMatch[0].replace(/&amp;/g, '&');
+                const bitlyMatch = content.match(/https:\/\/bit\.ly\/[^\s"']+/);
+                
+                if (driveMatch) {
+                    downloadLink = driveMatch[0].replace(/&amp;/g, '&');
+                } else if (bitlyMatch) {
+                    downloadLink = bitlyMatch[0];
+                }
 
                 const isVip = labels.some(l => l === 'FontTraPhi' || l === 'FontVip' || l.toUpperCase().includes('VIP')) || isPaid;
                 
-                let finalLink = isVip ? `https://m.me/FontVietLinh?text=Tôi muốn mua font: ${title}` : (driveLink ? driveLink : blogLink);
+                let finalLink = isVip ? `https://m.me/FontVietLinh?text=Tôi muốn mua font: ${title}` : (downloadLink ? downloadLink : blogLink);
                 const btnTxt = isVip ? "Mua ngay" : "Tải ngay";
                 const btnCls = isVip ? "btn-paid" : "btn-free";
 
