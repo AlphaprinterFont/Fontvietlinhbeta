@@ -6,89 +6,89 @@
     <title>Font Việt Linh - Premium Fonts</title>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        /* ĐỊNH NGHĨA BIẾN MÀU CHO 3 GIAO DIỆN */
         :root { 
-            --google-blue: #4285F4; 
-            --vip-gold: #f4b400; 
-            --vip-red: #d93025;
-            /* Mặc định: Giao diện Trắng */
-            --bg: #ffffff; 
-            --card-bg: #ffffff;
-            --text-main: #202124;
-            --text-sub: #5f6368;
-            --border: #dfe1e5;
-            --header-bg: #ffffff;
+            --google-blue: #4285F4; --vip-gold: #f4b400; --vip-red: #d93025;
+            --bg: #ffffff; --card-bg: #ffffff; --text-main: #202124; --text-sub: #5f6368; --border: #dfe1e5; --header-bg: #ffffff; --nav-bg: #ffffff;
         }
 
-        /* GIAO DIỆN XANH */
         [data-theme='blue'] {
-            --bg: #e8f0fe;
-            --card-bg: #ffffff;
-            --text-main: #174ea6;
-            --header-bg: #4285F4;
-            --header-text: #ffffff;
+            --bg: #e8f0fe; --card-bg: #ffffff; --text-main: #174ea6; --header-bg: #4285F4; --header-text: #ffffff; --nav-bg: #ffffff; --border: #d2e3fc;
         }
 
-        /* GIAO DIỆN ĐEN (DARK MODE) */
         [data-theme='dark'] {
-            --bg: #202124;
-            --card-bg: #303134;
-            --text-main: #e8eaed;
-            --text-sub: #bdc1c6;
-            --border: #3c4043;
-            --header-bg: #171717;
+            --bg: #121212; --card-bg: #1e1e1e; --text-main: #e8eaed; --text-sub: #bdc1c6; --border: #333333; --header-bg: #1f1f1f; --nav-bg: #1f1f1f;
         }
 
         body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--bg); color: var(--text-main); margin: 0; padding: 0; transition: 0.3s; }
         
-        header { background: var(--header-bg); padding: 20px; text-align: center; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; color: var(--header-text, var(--google-blue)); }
-        h1 { margin: 0 0 15px 0; font-size: 24px; text-transform: uppercase; letter-spacing: 1px; }
-        
-        /* Bộ chuyển đổi màu */
-        .theme-switcher { margin-bottom: 15px; display: flex; justify-content: center; gap: 10px; }
-        .theme-btn { width: 25px; height: 25px; border-radius: 50%; border: 2px solid #ddd; cursor: pointer; transition: 0.2s; }
+        /* Cấu trúc Header mới */
+        header { 
+            background: var(--header-bg); 
+            padding: 10px 20px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            border-bottom: 1px solid var(--border); 
+            position: sticky; top: 0; z-index: 100;
+            color: var(--header-text, var(--google-blue));
+        }
+
+        .logo-area { display: flex; align-items: center; gap: 10px; flex: 1; }
+        .logo-img { height: 40px; width: auto; object-fit: contain; }
+        .logo-text { font-size: 18px; font-weight: 600; text-transform: uppercase; white-space: nowrap; }
+
+        .search-area { flex: 2; display: flex; justify-content: center; }
+        .search-container { width: 100%; max-width: 400px; display: flex; border: 1px solid var(--border); border-radius: 24px; padding: 6px 15px; background: #fff; }
+        .search-container input { border: none; outline: none; width: 100%; font-size: 13px; color: #000; background: transparent; }
+
+        /* Bộ chuyển màu thu nhỏ bên phải */
+        .theme-area { flex: 1; display: flex; justify-content: flex-end; gap: 8px; }
+        .theme-btn { width: 18px; height: 18px; border-radius: 50%; border: 1px solid #ddd; cursor: pointer; transition: 0.2s; }
         .theme-btn:hover { transform: scale(1.2); }
         .btn-white { background: #ffffff; }
         .btn-blue { background: #4285F4; }
         .btn-dark { background: #202124; }
 
-        .search-container { max-width: 500px; margin: 0 auto; display: flex; border: 1px solid var(--border); border-radius: 24px; padding: 8px 20px; background: #fff; }
-        .search-container input { border: none; outline: none; width: 100%; font-size: 14px; color: #000; }
-
-        nav { background: var(--card-bg); padding: 10px; text-align: center; border-bottom: 1px solid var(--border); overflow-x: auto; white-space: nowrap; }
-        nav a { margin: 0 12px; text-decoration: none; color: var(--text-sub); font-size: 13px; font-weight: 600; cursor: pointer; transition: 0.3s; display: inline-block; }
+        nav { background: var(--nav-bg); padding: 12px; text-align: center; border-bottom: 1px solid var(--border); overflow-x: auto; white-space: nowrap; }
+        nav a { margin: 0 12px; text-decoration: none; color: var(--text-sub); font-size: 13px; font-weight: 600; cursor: pointer; transition: 0.3s; }
         nav a:hover, nav a.active { color: var(--google-blue); }
         .nav-external { color: var(--vip-red) !important; }
 
         .font-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; padding: 30px 20px; max-width: 1200px; margin: 0 auto; }
-        .font-card { background: var(--card-bg); border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: 0.3s; border: 1px solid var(--border); position: relative; }
-        .font-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); border-color: var(--google-blue); }
+        .font-card { background: var(--card-bg); border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border: 1px solid var(--border); position: relative; transition: 0.3s; }
+        .font-card:hover { transform: translateY(-5px); box-shadow: 0 12px 24px rgba(0,0,0,0.2); border-color: var(--google-blue); }
         
-        .badge-vip { position: absolute; top: 10px; right: 10px; background: var(--vip-gold); color: #fff; padding: 4px 10px; border-radius: 6px; font-size: 10px; font-weight: bold; z-index: 1; }
-        
-        .font-img { width: 100%; height: 180px; object-fit: cover; background: #eee; border-bottom: 1px solid var(--border); }
+        .badge-vip { position: absolute; top: 12px; right: 12px; background: var(--vip-gold); color: #fff; padding: 4px 10px; border-radius: 6px; font-size: 10px; font-weight: bold; z-index: 1; }
+        .font-img { width: 100%; height: 180px; object-fit: cover; background: #eee; }
         .font-info { padding: 15px; text-align: center; }
         .font-title { font-weight: 600; font-size: 15px; color: var(--text-main); height: 40px; overflow: hidden; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; }
         
-        .btn-download { color: #fff; padding: 9px 22px; border-radius: 20px; text-decoration: none; font-size: 13px; font-weight: 500; display: inline-block; transition: 0.3s; }
+        .btn-download { color: #fff; padding: 9px 22px; border-radius: 20px; text-decoration: none; font-size: 13px; font-weight: 600; display: inline-block; }
         .btn-free { background: var(--google-blue); }
         .btn-paid { background: var(--vip-red); }
 
         .load-more-container { text-align: center; padding: 40px; }
-        #load-more-btn { background: var(--card-bg); border: 1px solid var(--google-blue); color: var(--google-blue); padding: 12px 30px; border-radius: 25px; cursor: pointer; font-weight: 600; }
+        #load-more-btn { background: var(--card-bg); border: 1px solid var(--google-blue); color: var(--google-blue); padding: 10px 30px; border-radius: 25px; cursor: pointer; font-weight: 600; }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="theme-switcher">
-            <div class="theme-btn btn-white" onclick="setTheme('white')" title="Giao diện Trắng"></div>
-            <div class="theme-btn btn-blue" onclick="setTheme('blue')" title="Giao diện Xanh"></div>
-            <div class="theme-btn btn-dark" onclick="setTheme('dark')" title="Giao diện Đen"></div>
+        <div class="logo-area">
+            <img src="https://via.placeholder.com/150x50?text=LOGO" class="logo-img" alt="Logo Font Việt Linh">
+            <span class="logo-text">Font Việt Linh</span>
         </div>
-        <h1>Font Việt Linh</h1>
-        <div class="search-container">
-            <input type="text" id="searchInput" placeholder="Tìm tên font..." onkeypress="handleSearch(event)">
+
+        <div class="search-area">
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Tìm tên font..." onkeypress="handleSearch(event)">
+            </div>
+        </div>
+
+        <div class="theme-area">
+            <div class="theme-btn btn-white" onclick="setTheme('white')" title="Trắng"></div>
+            <div class="theme-btn btn-blue" onclick="setTheme('blue')" title="Xanh"></div>
+            <div class="theme-btn btn-dark" onclick="setTheme('dark')" title="Đen"></div>
         </div>
     </header>
 
@@ -96,6 +96,9 @@
         <a onclick="loadByLabel('')">Tất cả</a>
         <a onclick="loadByLabel('FontVietHoa')">Việt hóa</a>
         <a onclick="loadByLabel('FontTraPhi')">Font VIP</a>
+        <a onclick="loadByLabel('FontVietLinh')">Thiết kế</a>
+        <a href="https://www.facebook.com/FontVietLinh/posts/pfbid0MgsvYKxvMSTrqM5HR579RY4F2CHaqkPAJKk3Gz6UG4mTs8CtBpi7upVQbd7yHPJml" target="_blank" class="nav-external">Gói 4500 font</a>
+        <a href="https://www.facebook.com/FontVietLinh/posts/pfbid027H6LU65Y7EPfawKGMgxU3BzBZ24cocA5AT4aQATPKAaaXFaa8DcYLcPJrsh695Efl" target="_blank" class="nav-external">Gói Font T1-T6</a>
         <a href="https://www.facebook.com/FontVietLinh/" target="_blank">Liên hệ</a>
     </nav>
 
@@ -112,13 +115,10 @@
         let currentLabel = '';
         let currentSearch = '';
 
-        // HÀM CHUYỂN ĐỔI GIAO DIỆN
         function setTheme(theme) {
             document.documentElement.setAttribute('data-theme', theme);
             localStorage.setItem('font-linh-theme', theme);
         }
-
-        // Tự động tải theme đã lưu
         const savedTheme = localStorage.getItem('font-linh-theme') || 'white';
         setTheme(savedTheme);
 
@@ -134,61 +134,53 @@
         function render(data) {
             const container = document.getElementById('font-container');
             if (!data.feed.entry || data.feed.entry.length === 0) {
-                document.getElementById('load-more-btn').innerText = "Đã hiển thị tất cả";
+                document.getElementById('load-more-btn').innerText = "Hết dữ liệu";
                 return;
             }
-
             data.feed.entry.forEach(post => {
                 const title = post.title.$t;
                 const link = post.link.find(l => l.rel === 'alternate').href;
                 const labels = post.category ? post.category.map(c => c.term) : [];
                 const isVip = labels.some(l => l === 'FontTraPhi' || l === 'FontVip' || l.toUpperCase().includes('VIP'));
-                const buttonText = isVip ? "Mua ngay" : "Tải ngay";
-                const buttonClass = isVip ? "btn-paid" : "btn-free";
-
+                const btnTxt = isVip ? "Mua ngay" : "Tải ngay";
+                const btnCls = isVip ? "btn-paid" : "btn-free";
                 let img = "https://via.placeholder.com/300x180?text=Font+Viet+Linh";
                 if (post.content.$t.includes('<img')) {
-                    const match = post.content.$t.match(/src="([^"]+)"/);
-                    if (match) img = match[1];
+                    const m = post.content.$t.match(/src="([^"]+)"/);
+                    if (m) img = m[1];
                 }
-
                 container.innerHTML += `
                     <div class="font-card">
                         ${isVip ? '<div class="badge-vip">PREMIUM</div>' : ''}
                         <img src="${img}" class="font-img" alt="${title}">
                         <div class="font-info">
                             <div class="font-title">${title}</div>
-                            <a href="${link}" class="btn-download ${buttonClass}">${buttonText}</a>
+                            <a href="${link}" class="btn-download ${btnCls}">${btnTxt}</a>
                         </div>
-                    </div>
-                `;
+                    </div>`;
             });
             startIndex += maxResults;
         }
 
         function loadByLabel(label) {
-            currentLabel = label;
-            currentSearch = '';
+            currentLabel = label; currentSearch = '';
             document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
-            if (event) event.target.classList.add('active');
+            if (event && event.target.tagName === 'A') event.target.classList.add('active');
             resetAndFetch();
         }
 
         function handleSearch(e) {
             if (e.key === 'Enter') {
                 currentSearch = document.getElementById('searchInput').value;
-                currentLabel = '';
-                resetAndFetch();
+                currentLabel = ''; resetAndFetch();
             }
         }
 
         function resetAndFetch() {
             document.getElementById('font-container').innerHTML = '';
-            startIndex = 1;
-            document.getElementById('load-more-btn').innerText = "XEM THÊM FONT";
+            startIndex = 1; document.getElementById('load-more-btn').innerText = "XEM THÊM FONT";
             fetchPosts();
         }
-
         fetchPosts();
     </script>
 </body>
