@@ -7,108 +7,74 @@
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root { 
-            /* Màu sắc bổ trợ */
-            --vip-gold: #f4b400; 
-            --vip-red: #d93025;
-            
-            /* Màu chữ và viền (Chỉnh cho hợp nền giấy cũ) */
-            --text-main: #333333; /* Nâu đen đậm */
-            --text-sub: #555555;
-            --border: #d2ccc0; /* Màu viền nhe nhẹ hợp màu giấy */
-            
-            /* Link ảnh nền giấy cũ - LINH CẦN TẢI ẢNH LÊN images/bg-paper.jpg */
-            --bg-paper-url: url('images/bg-paper.jpg'); 
+            --vip-gold: #f4b400; --vip-red: #d93025;
+            --bg: #ffffff; --card-bg: #ffffff; --text-main: #202124; --text-sub: #5f6368; --border: #dfe1e5; --nav-bg: #ffffff;
+            --bg-paper: url('images/bg-paper.jpg'); /* ĐƯỜNG DẪN ẢNH NỀN GIẤY CỦA LINH */
         }
 
-        body { 
-            font-family: 'Be Vietnam Pro', sans-serif; 
-            background: #fdfcf5; /* Màu nền trang nhẹ nhàng hợp nền giấy */
-            color: var(--text-main); 
-            margin: 0; padding: 0; 
+        /* GIAO DIỆN GIẤY CŨ (THAY CHO XANH NAVY) */
+        [data-theme='paper'] {
+            --bg: #fdfcf5; 
+            --card-bg: rgba(255, 255, 255, 0.5); 
+            --text-main: #3e3a35; 
+            --nav-bg: transparent; 
+            --border: #d2ccc0;
+            background-image: var(--bg-paper); /* Hình nền phủ toàn bộ trang */
+            background-attachment: fixed;
         }
+
+        /* GIAO DIỆN ĐEN */
+        [data-theme='dark'] {
+            --bg: #121212; --card-bg: #1e1e1e; --text-main: #e4e6eb; --text-sub: #b0b3b8; --border: #333; --nav-bg: #1a1a1a;
+        }
+
+        body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--bg); color: var(--text-main); margin: 0; padding: 0; transition: 0.3s; }
         
-        /* HEADER VỚI NỀN GIẤY CŨ */
+        /* Header luôn dùng nền giấy */
         header { 
-            background-image: var(--bg-paper-url);
-            background-size: cover; /* Phủ kín header */
-            background-position: center;
-            padding: 15px 25px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-            border-bottom: 2px solid var(--border); 
-            position: sticky; top: 0; z-index: 100;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            background-image: var(--bg-paper); background-size: cover; background-position: center;
+            padding: 12px 25px; display: flex; align-items: center; justify-content: space-between; 
+            border-bottom: 2px solid #d2ccc0; position: sticky; top: 0; z-index: 100;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        .logo-area { display: flex; align-items: center; gap: 12px; }
-        .logo-img { height: 45px; width: auto; object-fit: contain; }
-        .logo-text { font-size: 22px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-main); }
+        .logo-area { display: flex; align-items: center; gap: 12px; flex: 1; }
+        .logo-img { height: 42px; width: auto; object-fit: contain; }
+        .logo-text { font-size: 20px; font-weight: 700; text-transform: uppercase; color: #333; white-space: nowrap; }
 
-        .search-area { flex: 1; display: flex; justify-content: center; padding: 0 30px; }
-        .search-container { 
-            width: 100%; max-width: 400px; 
-            display: flex; 
-            border: 1px solid var(--border); 
-            border-radius: 24px; 
-            padding: 7px 18px; 
-            background: rgba(255, 255, 255, 0.7); /* Nền ô tìm kiếm hơi trong suốt */
-        }
+        .search-area { flex: 2; display: flex; justify-content: center; }
+        .search-container { width: 100%; max-width: 400px; display: flex; border: 1px solid #d2ccc0; border-radius: 24px; padding: 7px 18px; background: rgba(255,255,255,0.8); }
         .search-container input { border: none; outline: none; width: 100%; font-size: 14px; color: #000; background: transparent; }
 
-        /* THANH NAVI ĐƠN GIẢN NỀN TRẮNG */
-        nav { background: #fff; padding: 12px; text-align: center; border-bottom: 1px solid var(--border); overflow-x: auto; white-space: nowrap; }
+        .theme-area { flex: 1; display: flex; justify-content: flex-end; gap: 8px; }
+        .theme-btn { width: 18px; height: 18px; border-radius: 50%; border: 1px solid #ccc; cursor: pointer; transition: 0.2s; }
+        .btn-white { background: #ffffff; }
+        .btn-paper { background: #e3dec6; } /* Nút màu giấy */
+        .btn-dark { background: #242526; }
+
+        nav { background: var(--nav-bg); padding: 12px; text-align: center; border-bottom: 1px solid var(--border); overflow-x: auto; white-space: nowrap; }
         nav a { margin: 0 15px; text-decoration: none; color: var(--text-sub); font-size: 14px; font-weight: 600; cursor: pointer; transition: 0.3s; }
-        nav a:hover, nav a.active { color: #000; border-bottom: 2px solid #000; padding-bottom: 5px; }
+        nav a:hover, nav a.active { color: #000; }
         .nav-external { color: var(--vip-red) !important; font-weight: 700; }
 
-        /* GRID PHÔNG CHỮ */
-        .font-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; padding: 40px 30px; max-width: 1300px; margin: 0 auto; }
-        .font-card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border: 1px solid var(--border); position: relative; transition: 0.3s; }
-        .font-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+        .font-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; padding: 30px; max-width: 1300px; margin: 0 auto; }
+        .font-card { background: var(--card-bg); border-radius: 12px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border: 1px solid var(--border); position: relative; transition: 0.3s; backdrop-filter: blur(5px); }
+        .font-card:hover { transform: translateY(-6px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); border-color: #000; }
         
         .badge-vip { position: absolute; top: 12px; right: 12px; background: var(--vip-gold); color: #fff; padding: 5px 12px; border-radius: 6px; font-size: 10px; font-weight: 800; z-index: 1; }
-        .font-img { width: 100%; height: 190px; object-fit: cover; background: #fdfdfa; border-bottom: 1px solid var(--border); }
+        .font-img { width: 100%; height: 190px; object-fit: cover; background: #f8f9fa; border-bottom: 1px solid var(--border); }
         .font-info { padding: 20px; text-align: center; }
-        .font-title { font-weight: 600; font-size: 16px; color: var(--text-main); height: 45px; overflow: hidden; margin-bottom: 15px; line-height: 1.4; display: flex; align-items: center; justify-content: center; }
+        .font-title { font-weight: 600; font-size: 16px; color: var(--text-main); height: 45px; overflow: hidden; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; }
         
-        /* NÚT BẤM CŨNG DÙNG NỀN GIẤY */
         .btn-download { 
-            background-image: var(--bg-paper-url);
-            background-size: cover;
-            color: var(--text-main); /* Chữ màu đậm trên nền giấy */
-            padding: 10px 25px; 
-            border-radius: 25px; 
-            text-decoration: none; 
-            font-size: 14px; 
-            font-weight: 600; 
-            display: inline-block; 
-            width: 85%; 
-            transition: 0.3s; 
-            border: 1px solid var(--border);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background-image: var(--bg-paper); background-size: cover;
+            color: #333; padding: 10px 25px; border-radius: 25px; text-decoration: none; 
+            font-size: 14px; font-weight: 600; display: inline-block; width: 85%; border: 1px solid #d2ccc0;
         }
-        .btn-download:hover { 
-            transform: scale(1.03);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-        }
-        /* Nút Mua ngay vẫn giữ màu đỏ để nổi bật */
         .btn-paid { background-image: none; background: var(--vip-red); color: #fff; border: none; }
 
-        .load-more-container { text-align: center; padding: 60px; }
-        #load-more-btn { 
-            background-image: var(--bg-paper-url);
-            background-size: cover;
-            border: 2px solid var(--border); 
-            color: var(--text-main); 
-            padding: 12px 45px; 
-            border-radius: 30px; 
-            cursor: pointer; 
-            font-weight: 700; 
-            transition: 0.3s; 
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        #load-more-btn:hover { transform: scale(1.05); }
+        .load-more-container { text-align: center; padding: 50px; }
+        #load-more-btn { background-image: var(--bg-paper); background-size: cover; border: 2px solid #d2ccc0; color: #333; padding: 12px 45px; border-radius: 30px; cursor: pointer; font-weight: 700; }
     </style>
 </head>
 <body>
@@ -121,11 +87,16 @@
 
         <div class="search-area">
             <div class="search-container">
-                <input type="text" id="searchInput" placeholder="Tìm kiếm font chữ nghệ thuật..." onkeypress="handleSearch(event)">
+                <input type="text" id="searchInput" placeholder="Tìm kiếm font chữ..." onkeypress="handleSearch(event)">
             </div>
         </div>
-        
-        </header>
+
+        <div class="theme-area">
+            <div class="theme-btn btn-white" onclick="setTheme('white')" title="Trắng"></div>
+            <div class="theme-btn btn-paper" onclick="setTheme('paper')" title="Giấy Cũ"></div>
+            <div class="theme-btn btn-dark" onclick="setTheme('dark')" title="Đen"></div>
+        </div>
+    </header>
 
     <nav id="category-nav">
         <a onclick="loadByLabel('')" class="active">Tất cả</a>
@@ -140,7 +111,7 @@
     <div class="font-grid" id="font-container"></div>
 
     <div class="load-more-container">
-        <button id="load-more-btn" onclick="fetchPosts()">XEM THÊM FONT CŨ HƠN</button>
+        <button id="load-more-btn" onclick="fetchPosts()">XEM THÊM FONT</button>
     </div>
 
     <script>
@@ -150,21 +121,25 @@
         let currentLabel = '';
         let currentSearch = '';
 
-        // Đã bỏ các hàm liên quan đến setTheme
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('font-linh-theme', theme);
+        }
+        const savedTheme = localStorage.getItem('font-linh-theme') || 'paper'; // Mặc định là nền giấy
+        setTheme(savedTheme);
 
         function fetchPosts() {
             const script = document.createElement('script');
             let url = `https://www.blogger.com/feeds/${blogId}/posts/default?alt=json-in-script&callback=render&start-index=${startIndex}&max-results=${maxResults}`;
             if (currentLabel) url = `https://www.blogger.com/feeds/${blogId}/posts/default/-/${currentLabel}?alt=json-in-script&callback=render&start-index=${startIndex}&max-results=${maxResults}`;
             if (currentSearch) url += `&q=${encodeURIComponent(currentSearch)}`;
-            script.src = url;
-            document.body.appendChild(script);
+            script.src = url; document.body.appendChild(script);
         }
 
         function render(data) {
             const container = document.getElementById('font-container');
-            if (!data.feed.entry || data.feed.entry.length === 0) {
-                document.getElementById('load-more-btn').innerText = "Đã hiển thị hết nội dung";
+            if (!data.feed.entry) {
+                document.getElementById('load-more-btn').innerText = "Hết dữ liệu";
                 return;
             }
             data.feed.entry.forEach(post => {
@@ -179,15 +154,7 @@
                     const m = post.content.$t.match(/src="([^"]+)"/);
                     if (m) img = m[1];
                 }
-                container.innerHTML += `
-                    <div class="font-card">
-                        ${isVip ? '<div class="badge-vip">PREMIUM</div>' : ''}
-                        <img src="${img}" class="font-img" alt="${title}" loading="lazy">
-                        <div class="font-info">
-                            <div class="font-title">${title}</div>
-                            <a href="${link}" class="btn-download ${btnCls}">${btnTxt}</a>
-                        </div>
-                    </div>`;
+                container.innerHTML += `<div class="font-card">${isVip ? '<div class="badge-vip">PREMIUM</div>' : ''}<img src="${img}" class="font-img" alt="${title}" loading="lazy"><div class="font-info"><div class="font-title">${title}</div><a href="${link}" class="btn-download ${btnCls}">${btnTxt}</a></div></div>`;
             });
             startIndex += maxResults;
         }
@@ -199,18 +166,8 @@
             resetAndFetch();
         }
 
-        function handleSearch(e) {
-            if (e.key === 'Enter') {
-                currentSearch = document.getElementById('searchInput').value;
-                currentLabel = ''; resetAndFetch();
-            }
-        }
-
-        function resetAndFetch() {
-            document.getElementById('font-container').innerHTML = '';
-            startIndex = 1; document.getElementById('load-more-btn').innerText = "XEM THÊM FONT";
-            fetchPosts();
-        }
+        function handleSearch(e) { if (e.key === 'Enter') { currentSearch = document.getElementById('searchInput').value; currentLabel = ''; resetAndFetch(); } }
+        function resetAndFetch() { document.getElementById('font-container').innerHTML = ''; startIndex = 1; document.getElementById('load-more-btn').innerText = "XEM THÊM FONT"; fetchPosts(); }
         fetchPosts();
     </script>
 </body>
