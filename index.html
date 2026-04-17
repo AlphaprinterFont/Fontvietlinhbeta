@@ -9,28 +9,20 @@
         :root { 
             --vip-gold: #f4b400; --vip-red: #d93025;
             --bg: #ffffff; --card-bg: #ffffff; --text-main: #202124; --text-sub: #5f6368; --border: #dfe1e5; --nav-bg: #ffffff;
-            --bg-paper: url('images/bg-paper.jpg'); /* ĐƯỜNG DẪN ẢNH NỀN GIẤY CỦA LINH */
+            --bg-paper: url('images/bg-paper.jpg'); 
         }
 
-        /* GIAO DIỆN GIẤY CŨ (THAY CHO XANH NAVY) */
         [data-theme='paper'] {
-            --bg: #fdfcf5; 
-            --card-bg: rgba(255, 255, 255, 0.5); 
-            --text-main: #3e3a35; 
-            --nav-bg: transparent; 
-            --border: #d2ccc0;
-            background-image: var(--bg-paper); /* Hình nền phủ toàn bộ trang */
-            background-attachment: fixed;
+            --bg: #fdfcf5; --card-bg: rgba(255, 255, 255, 0.6); --text-main: #3e3a35; --nav-bg: transparent; --border: #d2ccc0;
+            background-image: var(--bg-paper); background-attachment: fixed;
         }
 
-        /* GIAO DIỆN ĐEN */
         [data-theme='dark'] {
             --bg: #121212; --card-bg: #1e1e1e; --text-main: #e4e6eb; --text-sub: #b0b3b8; --border: #333; --nav-bg: #1a1a1a;
         }
 
         body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--bg); color: var(--text-main); margin: 0; padding: 0; transition: 0.3s; }
         
-        /* Header luôn dùng nền giấy */
         header { 
             background-image: var(--bg-paper); background-size: cover; background-position: center;
             padding: 12px 25px; display: flex; align-items: center; justify-content: space-between; 
@@ -49,7 +41,7 @@
         .theme-area { flex: 1; display: flex; justify-content: flex-end; gap: 8px; }
         .theme-btn { width: 18px; height: 18px; border-radius: 50%; border: 1px solid #ccc; cursor: pointer; transition: 0.2s; }
         .btn-white { background: #ffffff; }
-        .btn-paper { background: #e3dec6; } /* Nút màu giấy */
+        .btn-paper { background: #e3dec6; }
         .btn-dark { background: #242526; }
 
         nav { background: var(--nav-bg); padding: 12px; text-align: center; border-bottom: 1px solid var(--border); overflow-x: auto; white-space: nowrap; }
@@ -59,19 +51,22 @@
 
         .font-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; padding: 30px; max-width: 1300px; margin: 0 auto; }
         .font-card { background: var(--card-bg); border-radius: 12px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border: 1px solid var(--border); position: relative; transition: 0.3s; backdrop-filter: blur(5px); }
-        .font-card:hover { transform: translateY(-6px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); border-color: #000; }
+        .font-card:hover { transform: translateY(-6px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
         
         .badge-vip { position: absolute; top: 12px; right: 12px; background: var(--vip-gold); color: #fff; padding: 5px 12px; border-radius: 6px; font-size: 10px; font-weight: 800; z-index: 1; }
         .font-img { width: 100%; height: 190px; object-fit: cover; background: #f8f9fa; border-bottom: 1px solid var(--border); }
         .font-info { padding: 20px; text-align: center; }
-        .font-title { font-weight: 600; font-size: 16px; color: var(--text-main); height: 45px; overflow: hidden; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; }
+        
+        /* Chỉnh tiêu đề và giá tiền */
+        .font-title { font-weight: 600; font-size: 15px; color: var(--text-main); margin-bottom: 5px; line-height: 1.4; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+        .font-price { color: var(--vip-red); font-weight: 700; font-size: 14px; margin-bottom: 15px; display: block; }
         
         .btn-download { 
             background-image: var(--bg-paper); background-size: cover;
-            color: #333; padding: 10px 25px; border-radius: 25px; text-decoration: none; 
-            font-size: 14px; font-weight: 600; display: inline-block; width: 85%; border: 1px solid #d2ccc0;
+            color: #333; padding: 10px 20px; border-radius: 25px; text-decoration: none; 
+            font-size: 13px; font-weight: 700; display: inline-block; width: 85%; border: 1px solid #d2ccc0;
         }
-        .btn-paid { background-image: none; background: var(--vip-red); color: #fff; border: none; }
+        .btn-paid { background-image: none !important; background: var(--vip-red) !important; color: #fff !important; border: none !important; }
 
         .load-more-container { text-align: center; padding: 50px; }
         #load-more-btn { background-image: var(--bg-paper); background-size: cover; border: 2px solid #d2ccc0; color: #333; padding: 12px 45px; border-radius: 30px; cursor: pointer; font-weight: 700; }
@@ -84,17 +79,15 @@
             <img src="images/logo.png" class="logo-img" alt="Logo Font Việt Linh">
             <span class="logo-text">Font Việt Linh</span>
         </div>
-
         <div class="search-area">
             <div class="search-container">
                 <input type="text" id="searchInput" placeholder="Tìm kiếm font chữ..." onkeypress="handleSearch(event)">
             </div>
         </div>
-
         <div class="theme-area">
-            <div class="theme-btn btn-white" onclick="setTheme('white')" title="Trắng"></div>
-            <div class="theme-btn btn-paper" onclick="setTheme('paper')" title="Giấy Cũ"></div>
-            <div class="theme-btn btn-dark" onclick="setTheme('dark')" title="Đen"></div>
+            <div class="theme-btn btn-white" onclick="setTheme('white')"></div>
+            <div class="theme-btn btn-paper" onclick="setTheme('paper')"></div>
+            <div class="theme-btn btn-dark" onclick="setTheme('dark')"></div>
         </div>
     </header>
 
@@ -103,16 +96,11 @@
         <a onclick="loadByLabel('FontVietHoa')">Việt hóa</a>
         <a onclick="loadByLabel('FontTraPhi')">Font VIP</a>
         <a onclick="loadByLabel('FontVietLinh')">Thiết kế</a>
-        <a href="https://www.facebook.com/FontVietLinh/posts/pfbid0MgsvYKxvMSTrqM5HR579RY4F2CHaqkPAJKk3Gz6UG4mTs8CtBpi7upVQbd7yHPJml" target="_blank" class="nav-external">Gói 4500 font</a>
-        <a href="https://www.facebook.com/FontVietLinh/posts/pfbid027H6LU65Y7EPfawKGMgxU3BzBZ24cocA5AT4aQATPKAaaXFaa8DcYLcPJrsh695Efl" target="_blank" class="nav-external">Gói Font T1-T6</a>
         <a href="https://www.facebook.com/FontVietLinh/" target="_blank">Liên hệ</a>
     </nav>
 
     <div class="font-grid" id="font-container"></div>
-
-    <div class="load-more-container">
-        <button id="load-more-btn" onclick="fetchPosts()">XEM THÊM FONT</button>
-    </div>
+    <div class="load-more-container"><button id="load-more-btn" onclick="fetchPosts()">XEM THÊM FONT</button></div>
 
     <script>
         const blogId = "5243210247122196079";
@@ -125,8 +113,7 @@
             document.documentElement.setAttribute('data-theme', theme);
             localStorage.setItem('font-linh-theme', theme);
         }
-        const savedTheme = localStorage.getItem('font-linh-theme') || 'paper'; // Mặc định là nền giấy
-        setTheme(savedTheme);
+        setTheme(localStorage.getItem('font-linh-theme') || 'paper');
 
         function fetchPosts() {
             const script = document.createElement('script');
@@ -138,23 +125,42 @@
 
         function render(data) {
             const container = document.getElementById('font-container');
-            if (!data.feed.entry) {
-                document.getElementById('load-more-btn').innerText = "Hết dữ liệu";
-                return;
-            }
+            if (!data.feed.entry) { document.getElementById('load-more-btn').innerText = "Hết dữ liệu"; return; }
+            
             data.feed.entry.forEach(post => {
                 const title = post.title.$t;
-                const link = post.link.find(l => l.rel === 'alternate').href;
+                const blogLink = post.link.find(l => l.rel === 'alternate').href;
+                const content = post.content.$t;
                 const labels = post.category ? post.category.map(c => c.term) : [];
+                
+                // Bóc tách giá tiền từ nội dung bài viết
+                let priceText = "";
+                const priceMatch = content.match(/(Giá|Gia):\s*([0-9.kđĐ]+)/i);
+                if (priceMatch) priceText = priceMatch[2].toUpperCase();
+
                 const isVip = labels.some(l => l === 'FontTraPhi' || l === 'FontVip' || l.toUpperCase().includes('VIP'));
+                
+                // NẾU LÀ VIP: Link dẫn đến tin nhắn Facebook. NẾU MIỄN PHÍ: Dẫn đến bài Blog để tải.
+                const finalLink = isVip ? `https://m.me/FontVietLinh?text=Tôi muốn mua font: ${title}` : blogLink;
                 const btnTxt = isVip ? "Mua ngay" : "Tải ngay";
                 const btnCls = isVip ? "btn-paid" : "btn-free";
+
                 let img = "https://via.placeholder.com/400x250?text=Font+Viet+Linh";
-                if (post.content.$t.includes('<img')) {
-                    const m = post.content.$t.match(/src="([^"]+)"/);
+                if (content.includes('<img')) {
+                    const m = content.match(/src="([^"]+)"/);
                     if (m) img = m[1];
                 }
-                container.innerHTML += `<div class="font-card">${isVip ? '<div class="badge-vip">PREMIUM</div>' : ''}<img src="${img}" class="font-img" alt="${title}" loading="lazy"><div class="font-info"><div class="font-title">${title}</div><a href="${link}" class="btn-download ${btnCls}">${btnTxt}</a></div></div>`;
+
+                container.innerHTML += `
+                    <div class="font-card">
+                        ${isVip ? '<div class="badge-vip">PREMIUM</div>' : ''}
+                        <img src="${img}" class="font-img" alt="${title}" loading="lazy">
+                        <div class="font-info">
+                            <div class="font-title">${title}</div>
+                            <div class="font-price">${priceText ? priceText : 'MIỄN PHÍ'}</div>
+                            <a href="${finalLink}" target="_blank" class="btn-download ${btnCls}">${btnTxt}</a>
+                        </div>
+                    </div>`;
             });
             startIndex += maxResults;
         }
