@@ -59,9 +59,9 @@
         
         .font-title { font-weight: 600; font-size: 15px; color: var(--text-main); margin-bottom: 5px; line-height: 1.4; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
         
-        /* Hiển thị giá tiền hoặc trạng thái VIP */
-        .font-price { color: var(--vip-red); font-weight: 700; font-size: 14px; margin-bottom: 15px; display: block; text-transform: lowercase; }
-        .font-price::first-letter { text-transform: uppercase; }
+        /* Hiển thị phí Việt hoá với đ thường */
+        .font-price { color: var(--vip-red); font-weight: 700; font-size: 13px; margin-bottom: 15px; display: block; }
+        .font-price span { text-transform: lowercase; }
 
         .btn-download { 
             background-image: var(--bg-paper); background-size: cover;
@@ -138,25 +138,23 @@
                 const content = post.content.$t;
                 const labels = post.category ? post.category.map(c => c.term) : [];
                 
-                // Logic bóc tách giá và xác định loại font
-                let priceValue = "";
-                let isPaidByText = false;
+                let priceText = "";
+                let isPaid = false;
 
-                // Kiểm tra cụm từ khóa "Giá:" hoặc "Phí Việt hóa:"
+                // Tìm các cụm từ phí trong bài viết
                 const priceMatch = content.match(/(Giá|Gia|Phí Việt hóa|Phí Việt Hóa):\s*([0-9.kđĐ]+)/i);
                 
                 if (priceMatch) {
-                    isPaidByText = true;
-                    // Lấy phần số tiền và đơn vị, ép về đ thường
-                    priceValue = "Font VIP: " + priceMatch[2].toLowerCase();
+                    isPaid = true;
+                    // Chuyển riêng phần số tiền/đơn vị sang viết thường để có chữ đ xinh
+                    priceText = "Phí Việt hoá: <span>" + priceMatch[2].toLowerCase() + "</span>";
                 }
 
                 let driveLink = "";
                 const driveMatch = content.match(/https:\/\/drive\.google\.com\/[^\s"']+/);
                 if (driveMatch) driveLink = driveMatch[0].replace(/&amp;/g, '&');
 
-                // Font được coi là VIP nếu có Label "FontTraPhi" HOẶC có cụm từ "Giá/Phí" trong nội dung
-                const isVip = labels.some(l => l === 'FontTraPhi' || l === 'FontVip' || l.toUpperCase().includes('VIP')) || isPaidByText;
+                const isVip = labels.some(l => l === 'FontTraPhi' || l === 'FontVip' || l.toUpperCase().includes('VIP')) || isPaid;
                 
                 let finalLink = isVip ? `https://m.me/FontVietLinh?text=Tôi muốn mua font: ${title}` : (driveLink ? driveLink : blogLink);
                 const btnTxt = isVip ? "Mua ngay" : "Tải ngay";
@@ -174,7 +172,7 @@
                         <img src="${img}" class="font-img" alt="${title}" loading="lazy">
                         <div class="font-info">
                             <div class="font-title">${title}</div>
-                            <div class="font-price">${priceValue ? priceValue : 'miễn phí'}</div>
+                            <div class="font-price">${priceText ? priceText : 'miễn phí'}</div>
                             <a href="${finalLink}" target="_blank" class="btn-download ${btnCls}">${btnTxt}</a>
                         </div>
                     </div>`;
