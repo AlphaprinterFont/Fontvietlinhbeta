@@ -6,6 +6,10 @@
     <title>Font Việt Linh - Premium Fonts</title>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600&display=swap" rel="stylesheet">
     <style>
+        /* Khi ở giao diện Đen, logo sẽ tự động sáng lên nếu là màu tối */
+[data-theme='dark'] .logo-img {
+    filter: brightness(0) invert(1);
+}
         :root { 
             --google-blue: #4285F4; --vip-gold: #f4b400; --vip-red: #d93025;
             --bg: #ffffff; --card-bg: #ffffff; --text-main: #202124; --text-sub: #5f6368; --border: #dfe1e5; --header-bg: #ffffff; --nav-bg: #ffffff;
@@ -75,7 +79,7 @@
 
     <header>
         <div class="logo-area">
-            <img src="https://via.placeholder.com/150x50?text=LOGO" class="logo-img" alt="Logo Font Việt Linh">
+            <img src="images/logo.png" class="logo-img" alt="Logo Font Việt Linh">
             <span class="logo-text">Font Việt Linh</span>
         </div>
 
