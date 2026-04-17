@@ -47,7 +47,6 @@
         nav { background: var(--nav-bg); padding: 12px; text-align: center; border-bottom: 1px solid var(--border); overflow-x: auto; white-space: nowrap; }
         nav a { margin: 0 15px; text-decoration: none; color: var(--text-sub); font-size: 14px; font-weight: 600; cursor: pointer; transition: 0.3s; }
         nav a:hover, nav a.active { color: #000; }
-        .nav-external { color: var(--vip-red) !important; font-weight: 700; }
 
         .font-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; padding: 30px; max-width: 1300px; margin: 0 auto; }
         .font-card { background: var(--card-bg); border-radius: 12px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border: 1px solid var(--border); position: relative; transition: 0.3s; backdrop-filter: blur(5px); }
@@ -57,7 +56,6 @@
         .font-img { width: 100%; height: 190px; object-fit: cover; background: #f8f9fa; border-bottom: 1px solid var(--border); }
         .font-info { padding: 20px; text-align: center; }
         
-        /* Chỉnh tiêu đề và giá tiền */
         .font-title { font-weight: 600; font-size: 15px; color: var(--text-main); margin-bottom: 5px; line-height: 1.4; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
         .font-price { color: var(--vip-red); font-weight: 700; font-size: 14px; margin-bottom: 15px; display: block; }
         
@@ -133,15 +131,27 @@
                 const content = post.content.$t;
                 const labels = post.category ? post.category.map(c => c.term) : [];
                 
-                // Bóc tách giá tiền từ nội dung bài viết
+                // 1. Tìm giá tiền
                 let priceText = "";
                 const priceMatch = content.match(/(Giá|Gia):\s*([0-9.kđĐ]+)/i);
                 if (priceMatch) priceText = priceMatch[2].toUpperCase();
 
+                // 2. Tìm link Drive trong nội dung bài viết
+                let driveLink = "";
+                const driveMatch = content.match(/https:\/\/drive\.google\.com\/[^\s"']+/);
+                if (driveMatch) driveLink = driveMatch[0].replace(/&amp;/g, '&');
+
                 const isVip = labels.some(l => l === 'FontTraPhi' || l === 'FontVip' || l.toUpperCase().includes('VIP'));
                 
-                // NẾU LÀ VIP: Link dẫn đến tin nhắn Facebook. NẾU MIỄN PHÍ: Dẫn đến bài Blog để tải.
-                const finalLink = isVip ? `https://m.me/FontVietLinh?text=Tôi muốn mua font: ${title}` : blogLink;
+                // 3. Quyết định Link nút bấm
+                let finalLink = "";
+                if (isVip) {
+                    finalLink = `https://m.me/FontVietLinh?text=Tôi muốn mua font: ${title}`;
+                } else {
+                    // Nếu là font miễn phí: Ưu tiên link Drive nếu có, không thì về Blog
+                    finalLink = driveLink ? driveLink : blogLink;
+                }
+
                 const btnTxt = isVip ? "Mua ngay" : "Tải ngay";
                 const btnCls = isVip ? "btn-paid" : "btn-free";
 
