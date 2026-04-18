@@ -31,16 +31,17 @@
         }
 
         [data-theme='dark'] {
-            /* GIAO DIỆN 3 (THAY THẾ DARK): Xanh Denim & Đỏ kem */
-            --bg: #3D74B6; 
-            --card-bg: #FBF5DE; 
-            --text-main: #DC3C22; 
-            --text-sub: #EAC8A6; 
-            --border: #EAC8A6; 
-            --nav-bg: #3D74B6;
-            --vip-gold: #DC3C22;
-            --vip-red: #3D74B6;
-        }
+    /* GIAO DIỆN 3 (THAY THẾ DARK): Xanh Denim & Đỏ kem */
+    --vip-gold: #DC3C22;    /* Đỏ: Dùng cho huy hiệu Premium */
+    --vip-red: #EAC8A6;     /* Kem đậm: Dùng cho giá tiền */
+    --bg: #3D74B6;          /* Xanh Denim: Nền toàn trang */
+    --card-bg: #FBF5DE;     /* Kem sáng: Nền của ô chứa font */
+    --text-main: #FFFFFF;   /* Trắng: Tiêu đề và nội dung chính trên nền xanh */
+    --text-sub: #FFFFFF;    /* Trắng: Các thông tin phụ */
+    --border: #EAC8A6;      /* Kem đậm: Đường viền card và khung tìm kiếm */
+    --nav-bg: transparent;  /* Trong suốt: Để lộ nền xanh của trang */
+    --bg-paper: none;
+}
 
         body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--bg); color: var(--text-main); margin: 0; padding: 0; transition: 0.3s; }
         
