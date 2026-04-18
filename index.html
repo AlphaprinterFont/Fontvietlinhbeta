@@ -620,6 +620,8 @@
     const maxResults = 24;
     let currentLabel = '';
     let currentSearch = '';
+    let totalLoaded = 0;
+    let sortAZ = false;
 
     function setTheme(theme) {
       document.documentElement.setAttribute('data-theme', theme);
@@ -632,56 +634,138 @@
       let url = `https://www.blogger.com/feeds/${blogId}/posts/default?alt=json-in-script&callback=render&start-index=${startIndex}&max-results=${maxResults}`;
       if (currentLabel) url = `https://www.blogger.com/feeds/${blogId}/posts/default/-/${currentLabel}?alt=json-in-script&callback=render&start-index=${startIndex}&max-results=${maxResults}`;
       if (currentSearch) url += `&q=${encodeURIComponent(currentSearch)}`;
-      script.src = url; document.body.appendChild(script);
+      script.src = url;
+      document.body.appendChild(script);
     }
 
     function render(data) {
       const container = document.getElementById('font-container');
-      if (!data.feed.entry) { document.getElementById('load-more-btn').innerText = "Hết dữ liệu"; return; }
+      if (!data.feed.entry) {
+        document.getElementById('load-more-btn').innerText = "Hết dữ liệu";
+        return;
+      }
       const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-      data.feed.entry.forEach(post => {
+
+      data.feed.entry.forEach(function(post) {
         const title = post.title.$t;
-        const blogLink = post.link.find(l => l.rel === 'alternate').href;
+        const blogLink = post.link.find(function(l){ return l.rel === 'alternate'; }).href;
         const content = post.content.$t;
-        const labels = post.category ? post.category.map(c => c.term) : [];
+        const labels = post.category ? post.category.map(function(c){ return c.term; }) : [];
+
         let priceText = "";
         let isPaid = false;
         const priceMatch = content.match(/(Giá|Gia|Phí Việt hóa|Phí Việt Hoá):\s*([0-9.kđĐ]+)/i);
         if (priceMatch) {
           isPaid = true;
-          priceText = "Phí Việt Hoá: <span>" + priceMatch[2].toLowerCase() + "</span>";
+          priceText = "Phí Việt Hoá: " + priceMatch[2].toLowerCase();
         }
+
         let downloadLink = "";
         const driveMatch = content.match(/https:\/\/drive\.google\.com\/[^<"\s]+/);
         const bitlyMatch = content.match(/https:\/\/bit\.ly\/[^<"\s]+/);
-        if (driveMatch) { downloadLink = driveMatch[0].replace(/&amp;/g, '&'); }
-        else if (bitlyMatch) { downloadLink = bitlyMatch[0]; }
-        const isVip = labels.some(l => l === 'FontTraPhi' || l === 'FontVip' || l.toUpperCase().includes('VIP')) || isPaid;
+        if (driveMatch) downloadLink = driveMatch[0].replace(/&amp;/g, '&');
+        else if (bitlyMatch) downloadLink = bitlyMatch[0];
 
-        let finalLink = isVip ? (isMobile ? "https://m.me/FontVietLinh" : "https://www.facebook.com/messages/t/FontVietLinh") : (downloadLink ? downloadLink : blogLink);
+        const isVip = labels.some(function(l){
+          return l === 'FontTraPhi' || l === 'FontVip' || l.toUpperCase().includes('VIP');
+        }) || isPaid;
 
-        const btnTxt = isVip ? "Mua ngay" : "Tải ngay";
-        const btnCls = isVip ? "btn-paid" : "btn-free";
-        let img = "https://via.placeholder.com/400x250?text=Font+Viet+Linh";
+        const finalLink = isVip
+          ? (isMobile ? "https://m.me/FontVietLinh" : "https://www.facebook.com/messages/t/FontVietLinh")
+          : (downloadLink || blogLink);
+
+        let imgSrc = "https://via.placeholder.com/400x250?text=Font+Viet+Linh";
         if (content.includes('<img')) {
           const m = content.match(/src="([^"]+)"/);
-          if (m) img = m[1];
+          if (m) imgSrc = m[1];
         }
-        container.innerHTML += `<div class="font-card" data-order="${startIndex + data.feed.entry.indexOf(post)}">${isVip ? '<div class="badge-vip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 19h20M3 9l4.5 6L12 5l4.5 10L21 9l-1.5 10H4.5L3 9Z" stroke="#1a0f00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="3" cy="9" r="1.5" fill="#1a0f00"/><circle cx="12" cy="5" r="1.5" fill="#1a0f00"/><circle cx="21" cy="9" r="1.5" fill="#1a0f00"/></svg>VIP</div>' : ''}<div class="media-wrap"><img src="${img}" class="font-img" alt="${title}" loading="lazy"></div><div class="font-info"><div class="font-title">${title}</div><div class="font-meta-row"><div class="font-price">${priceText ? priceText : 'Miễn phí'}</div></div><a href="${finalLink}" target="_blank" rel="noopener noreferrer" class="btn-download ${btnCls}">${btnTxt}</a></div></div>`;
+
+        // Build card using createElement so data-order is reliable
+        const card = document.createElement('div');
+        card.className = 'font-card';
+        card.dataset.order = totalLoaded;
+        totalLoaded++;
+
+        const crownSVG = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 19h20M3 9l4.5 6L12 5l4.5 10L21 9l-1.5 10H4.5L3 9Z" stroke="#1a0f00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="3" cy="9" r="1.5" fill="#1a0f00"/><circle cx="12" cy="5" r="1.5" fill="#1a0f00"/><circle cx="21" cy="9" r="1.5" fill="#1a0f00"/></svg>`;
+
+        card.innerHTML = `
+          ${isVip ? `<div class="badge-vip">${crownSVG}VIP</div>` : ''}
+          <div class="media-wrap">
+            <img src="${imgSrc}" class="font-img" alt="${title}" loading="lazy">
+          </div>
+          <div class="font-info">
+            <div class="font-title">${title}</div>
+            <div class="font-meta-row">
+              <div class="font-price">${priceText || 'Miễn phí'}</div>
+            </div>
+            <a href="${finalLink}" target="_blank" rel="noopener noreferrer"
+               class="btn-download ${isVip ? 'btn-paid' : 'btn-free'}">
+              ${isVip ? 'Mua ngay' : 'Tải ngay'}
+            </a>
+          </div>`;
+
+        container.appendChild(card);
       });
+
       startIndex += maxResults;
-      if (sortAZ) setTimeout(applySortToDOM, 0);
+      if (sortAZ) applySortToDOM();
+    }
+
+    function toggleSort() {
+      sortAZ = !sortAZ;
+      const btn = document.getElementById('sort-az-btn');
+      const iconSVG = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h5M3 11h8M3 16h11"/><path d="M16 3l-3.5 8h7L16 3z"/><line x1="15" y1="17" x2="21" y2="17"/><line x1="18" y1="14" x2="18" y2="21"/></svg>`;
+      if (sortAZ) {
+        btn.classList.add('active');
+        btn.innerHTML = iconSVG + ' A → Z ✓';
+      } else {
+        btn.classList.remove('active');
+        btn.innerHTML = iconSVG + ' A → Z';
+      }
+      applySortToDOM();
+    }
+
+    function applySortToDOM() {
+      const container = document.getElementById('font-container');
+      const cards = Array.from(container.children);
+      if (sortAZ) {
+        cards.sort(function(a, b) {
+          const ta = (a.querySelector('.font-title') || {}).textContent || '';
+          const tb = (b.querySelector('.font-title') || {}).textContent || '';
+          return ta.trim().localeCompare(tb.trim(), 'vi', { sensitivity: 'base' });
+        });
+      } else {
+        cards.sort(function(a, b) {
+          return parseInt(a.dataset.order || 0) - parseInt(b.dataset.order || 0);
+        });
+      }
+      cards.forEach(function(c) { container.appendChild(c); });
     }
 
     function loadByLabel(label) {
-      currentLabel = label; currentSearch = '';
-      document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+      currentLabel = label;
+      currentSearch = '';
+      document.querySelectorAll('nav a').forEach(function(a){ a.classList.remove('active'); });
       if (event && event.target.tagName === 'A') event.target.classList.add('active');
       resetAndFetch();
     }
 
-    function handleSearch(e) { if (e.key === 'Enter') { currentSearch = document.getElementById('searchInput').value; currentLabel = ''; resetAndFetch(); } }
-    function resetAndFetch() { document.getElementById('font-container').innerHTML = ''; startIndex = 1; document.getElementById('load-more-btn').innerText = "Xem thêm font"; fetchPosts(); }
+    function handleSearch(e) {
+      if (e.key === 'Enter') {
+        currentSearch = document.getElementById('searchInput').value;
+        currentLabel = '';
+        resetAndFetch();
+      }
+    }
+
+    function resetAndFetch() {
+      document.getElementById('font-container').innerHTML = '';
+      startIndex = 1;
+      totalLoaded = 0;
+      document.getElementById('load-more-btn').innerText = "Xem thêm font";
+      fetchPosts();
+    }
+
     fetchPosts();
   </script>
 </body>
