@@ -207,7 +207,7 @@
 
     .logo-text {
       font-family: var(--font-display);
-      font-size: clamp(1.5rem, 1.25rem + 0.8vw, 2.1rem);
+      font-size: clamp(1.2rem, 1rem + 0.6vw, 1.6rem);
       line-height: 0.95;
       letter-spacing: 0.04em;
       color: var(--logo-text);
@@ -286,6 +286,39 @@
     .btn-white { background: linear-gradient(135deg, #ffffff, #d9d4ca); }
     .btn-paper { background: linear-gradient(135deg, #d5b892, #7a4f1d); }
     .btn-dark { background: linear-gradient(135deg, #131313, #7a7a7a); }
+
+
+    .sort-btn {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--color-text-muted);
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      cursor: pointer;
+      white-space: nowrap;
+      margin-left: auto;
+      transition: color var(--transition), background var(--transition), border-color var(--transition), transform var(--transition);
+    }
+    .sort-btn:hover {
+      color: var(--color-text);
+      border-color: var(--color-border);
+      background: var(--color-surface);
+      transform: translateY(-1px);
+    }
+    .sort-btn.active {
+      color: var(--color-accent);
+      border-color: var(--color-accent);
+      background: var(--color-accent-soft);
+    }
+    .sort-btn svg { flex: 0 0 auto; pointer-events: none; }
 
     nav {
       display: flex;
@@ -482,48 +515,6 @@
       color: var(--btn-paid-text);
     }
 
-
-    .toolbar {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 10px;
-      padding: 4px 2px 0;
-    }
-
-    .sort-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 9px 16px;
-      border-radius: 999px;
-      border: 1px solid var(--color-border);
-      background: var(--color-surface);
-      color: var(--color-text-muted);
-      font-size: var(--text-sm);
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      cursor: pointer;
-      backdrop-filter: var(--backdrop-blur);
-      -webkit-backdrop-filter: var(--backdrop-blur);
-      transition: color var(--transition), border-color var(--transition), background var(--transition), transform var(--transition);
-      white-space: nowrap;
-    }
-
-    .sort-btn:hover {
-      color: var(--color-text);
-      border-color: var(--color-accent);
-      transform: translateY(-1px);
-    }
-
-    .sort-btn.active {
-      color: var(--color-text);
-      border-color: var(--color-accent);
-      background: var(--color-accent-soft);
-    }
-
-    .sort-btn svg { flex: 0 0 auto; }
-
     .load-more-container {
       text-align: center;
       padding: 22px 0 50px;
@@ -568,7 +559,7 @@
       header { top: 8px; }
       .header-panel { padding: 14px; border-radius: 22px; }
       .logo-mark { width: 60px; height: 60px; border-radius: 18px; }
-      .logo-text { font-size: 1.6rem; white-space: normal; }
+      .logo-text { font-size: 1.25rem; white-space: normal; }
       .logo-slogan { white-space: normal; }
       .font-grid { gap: 18px; }
       .font-card { border-radius: 24px; }
@@ -614,16 +605,11 @@
       <a href="https://www.facebook.com/FontVietLinh/posts/pfbid027H6LU65Y7EPfawKGMgxU3BzBZ24cocA5AT4aQATPKAaaXFaa8DcYLcPJrsh695Efl" target="_blank" rel="noopener noreferrer" class="nav-external">Gói Cập Nhật T1-T6</a>
       <a href="https://www.facebook.com/FontVietLinh/" target="_blank" rel="noopener noreferrer">Liên hệ</a>
       <a href="https://zalo.me/0902922811" target="_blank" rel="noopener noreferrer">Zalo</a>
-    </nav>
-
-
-    <div class="toolbar">
       <button class="sort-btn" id="sort-az-btn" onclick="toggleSort()" aria-label="Sắp xếp A-Z">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h5M3 12h8M3 17h11M17 3l-4 9h8l-4-9ZM15 17h6M18 14v8"/></svg>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h5M3 11h8M3 16h11"/><path d="M16 3l-3.5 8h7L16 3z"/><line x1="15" y1="17" x2="21" y2="17"/><line x1="18" y1="14" x2="18" y2="21"/></svg>
         A → Z
       </button>
-    </div>
-
+    </nav>
     <div class="font-grid" id="font-container"></div>
     <div class="load-more-container"><button id="load-more-btn" onclick="fetchPosts()">Xem thêm font</button></div>
   </div>
@@ -681,11 +667,10 @@
           const m = content.match(/src="([^"]+)"/);
           if (m) img = m[1];
         }
-        const cardOrder = startIndex - maxResults + data.feed.entry.indexOf(post);
-        container.innerHTML += `<div class="font-card" data-order="${cardOrder}">${isVip ? '<div class="badge-vip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 19h20M3 9l4.5 6L12 5l4.5 10L21 9l-1.5 10H4.5L3 9Z" stroke="#1a0f00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="3" cy="9" r="1.5" fill="#1a0f00"/><circle cx="12" cy="5" r="1.5" fill="#1a0f00"/><circle cx="21" cy="9" r="1.5" fill="#1a0f00"/></svg>VIP</div>' : ''}<div class="media-wrap"><img src="${img}" class="font-img" alt="${title}" loading="lazy"></div><div class="font-info"><div class="font-title">${title}</div><div class="font-meta-row"><div class="font-price">${priceText ? priceText : 'Miễn phí'}</div></div><a href="${finalLink}" target="_blank" rel="noopener noreferrer" class="btn-download ${btnCls}">${btnTxt}</a></div></div>`;
+        container.innerHTML += `<div class="font-card" data-order="${startIndex + data.feed.entry.indexOf(post)}">${isVip ? '<div class="badge-vip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 19h20M3 9l4.5 6L12 5l4.5 10L21 9l-1.5 10H4.5L3 9Z" stroke="#1a0f00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="3" cy="9" r="1.5" fill="#1a0f00"/><circle cx="12" cy="5" r="1.5" fill="#1a0f00"/><circle cx="21" cy="9" r="1.5" fill="#1a0f00"/></svg>VIP</div>' : ''}<div class="media-wrap"><img src="${img}" class="font-img" alt="${title}" loading="lazy"></div><div class="font-info"><div class="font-title">${title}</div><div class="font-meta-row"><div class="font-price">${priceText ? priceText : 'Miễn phí'}</div></div><a href="${finalLink}" target="_blank" rel="noopener noreferrer" class="btn-download ${btnCls}">${btnTxt}</a></div></div>`;
       });
       startIndex += maxResults;
-      if (sortAZ) applySortToDOM();
+      if (sortAZ) setTimeout(applySortToDOM, 0);
     }
 
     function loadByLabel(label) {
