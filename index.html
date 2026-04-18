@@ -366,19 +366,27 @@
 
     .badge-vip {
       position: absolute;
-      top: 10px;
-      left: 10px;
+      top: 12px;
+      right: 12px;
+      left: auto;
       z-index: 2;
-      padding: 4px 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 13px 6px 9px;
       border-radius: 999px;
-      background: var(--badge-bg);
-      color: var(--badge-text);
-      font-size: 10px;
-      font-weight: 800;
+      background: linear-gradient(135deg, #c9920a 0%, #f5c842 55%, #e8a800 100%);
+      color: #1a0f00;
+      font-size: 11px;
+      font-weight: 900;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      opacity: 0.88;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+      box-shadow: 0 4px 14px rgba(201,146,10,0.55), 0 1px 0 rgba(255,255,255,0.22) inset;
+      border: 1px solid rgba(255,220,80,0.45);
+    }
+    .badge-vip svg {
+      flex: 0 0 auto;
+      filter: drop-shadow(0 1px 1px rgba(0,0,0,0.18));
     }
 
     .media-wrap {
@@ -440,14 +448,6 @@
     .font-price span {
       text-transform: uppercase;
       letter-spacing: 0.03em;
-    }
-
-    .font-status {
-      font-size: var(--text-xs);
-      color: var(--color-text-muted);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      font-weight: 700;
     }
 
     .btn-download {
@@ -626,13 +626,12 @@
 
         const btnTxt = isVip ? "Mua ngay" : "Tải ngay";
         const btnCls = isVip ? "btn-paid" : "btn-free";
-        const statusTxt = isVip ? "VIP" : "Miễn phí";
         let img = "https://via.placeholder.com/400x250?text=Font+Viet+Linh";
         if (content.includes('<img')) {
           const m = content.match(/src="([^"]+)"/);
           if (m) img = m[1];
         }
-        container.innerHTML += `<div class="font-card">${isVip ? '<div class="badge-vip">VIP</div>' : ''}<div class="media-wrap"><img src="${img}" class="font-img" alt="${title}" loading="lazy"></div><div class="font-info"><div class="font-title">${title}</div><div class="font-meta-row"><div class="font-price">${priceText ? priceText : 'Miễn phí'}</div><div class="font-status">${statusTxt}</div></div><a href="${finalLink}" target="_blank" rel="noopener noreferrer" class="btn-download ${btnCls}">${btnTxt}</a></div></div>`;
+        container.innerHTML += `<div class="font-card">${isVip ? '<div class="badge-vip"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 19h20M3 9l4.5 6L12 5l4.5 10L21 9l-1.5 10H4.5L3 9Z" stroke="#1a0f00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="3" cy="9" r="1.5" fill="#1a0f00"/><circle cx="12" cy="5" r="1.5" fill="#1a0f00"/><circle cx="21" cy="9" r="1.5" fill="#1a0f00"/></svg>VIP</div>' : ''}<div class="media-wrap"><img src="${img}" class="font-img" alt="${title}" loading="lazy"></div><div class="font-info"><div class="font-title">${title}</div><div class="font-meta-row"><div class="font-price">${priceText ? priceText : 'Miễn phí'}</div></div><a href="${finalLink}" target="_blank" rel="noopener noreferrer" class="btn-download ${btnCls}">${btnTxt}</a></div></div>`;
       });
       startIndex += maxResults;
     }
