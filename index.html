@@ -6,11 +6,11 @@
   <title>FONT VIỆT LINH - Chữ Việt cho người Việt</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@500;600;700&family=Alfa+Slab+One&display=swap" rel="stylesheet">
   <style>
     :root {
       --font-body: 'Be Vietnam Pro', sans-serif;
-      --font-display: 'Cormorant Garamond', serif;
+      --font-display: 'Alfa Slab One', 'Cormorant Garamond', serif;
 
       --text-xs: clamp(0.75rem, 0.72rem + 0.1vw, 0.82rem);
       --text-sm: clamp(0.875rem, 0.84rem + 0.18vw, 0.98rem);
@@ -65,7 +65,6 @@
       --load-more-text: #111111;
       --logo-text: #111111;
       --logo-subtext: #5f5a52;
-      --hero-line: rgba(17,17,17,0.10);
       --backdrop-blur: blur(18px);
     }
 
@@ -95,7 +94,6 @@
       --load-more-text: #2f2217;
       --logo-text: #2f2217;
       --logo-subtext: #6d5b49;
-      --hero-line: rgba(47,34,23,0.14);
       --bg-paper: radial-gradient(circle at top left, rgba(255,255,255,0.35), transparent 38%), linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0));
     }
 
@@ -125,7 +123,6 @@
       --load-more-text: #f2eee6;
       --logo-text: #f2eee6;
       --logo-subtext: #a9a39a;
-      --hero-line: rgba(242,238,230,0.12);
       --bg-paper: radial-gradient(circle at top left, rgba(255,255,255,0.04), transparent 40%);
     }
 
@@ -206,14 +203,6 @@
       display: flex;
       flex-direction: column;
       gap: 2px;
-    }
-
-    .logo-kicker {
-      font-size: var(--text-xs);
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--color-accent);
-      font-weight: 700;
     }
 
     .logo-text {
@@ -298,77 +287,6 @@
     .btn-paper { background: linear-gradient(135deg, #d5b892, #7a4f1d); }
     .btn-dark { background: linear-gradient(135deg, #131313, #7a7a7a); }
 
-    .hero-strip {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: var(--space-6);
-      padding: 26px 8px 12px;
-      align-items: end;
-    }
-
-    .hero-copy {
-      padding: 12px 6px 0;
-    }
-
-    .hero-line {
-      width: 72px;
-      height: 1px;
-      background: var(--hero-line);
-      margin-bottom: var(--space-4);
-    }
-
-    .hero-title {
-      margin: 0;
-      font-family: var(--font-display);
-      font-size: clamp(2.2rem, 1.8rem + 2vw, 4.4rem);
-      line-height: 0.92;
-      letter-spacing: 0.02em;
-      color: var(--color-text);
-      max-width: 10ch;
-    }
-
-    .hero-desc {
-      margin: var(--space-4) 0 0;
-      max-width: 58ch;
-      color: var(--color-text-muted);
-      font-size: var(--text-base);
-      line-height: 1.75;
-    }
-
-    .hero-meta {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-    }
-
-    .meta-card {
-      padding: 18px 18px 16px;
-      border: 1px solid var(--color-border);
-      border-radius: 22px;
-      background: var(--color-surface);
-      backdrop-filter: var(--backdrop-blur);
-      -webkit-backdrop-filter: var(--backdrop-blur);
-      box-shadow: var(--color-card-shadow);
-    }
-
-    .meta-label {
-      display: block;
-      margin-bottom: 6px;
-      font-size: var(--text-xs);
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--color-text-muted);
-      font-weight: 700;
-    }
-
-    .meta-value {
-      display: block;
-      font-size: var(--text-lg);
-      color: var(--color-text);
-      font-weight: 600;
-      line-height: 1.25;
-    }
-
     nav {
       display: flex;
       align-items: center;
@@ -448,18 +366,19 @@
 
     .badge-vip {
       position: absolute;
-      top: 16px;
-      left: 16px;
+      top: 10px;
+      left: 10px;
       z-index: 2;
-      padding: 8px 12px;
+      padding: 4px 10px;
       border-radius: 999px;
       background: var(--badge-bg);
       color: var(--badge-text);
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 800;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+      opacity: 0.88;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.18);
     }
 
     .media-wrap {
@@ -600,7 +519,6 @@
       .search-area { justify-content: stretch; }
       .search-container { width: 100%; max-width: 100%; }
       .theme-area { justify-self: start; }
-      .hero-strip { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 720px) {
@@ -610,9 +528,6 @@
       .logo-mark { width: 46px; height: 46px; border-radius: 16px; }
       .logo-text { font-size: 1.6rem; white-space: normal; }
       .logo-slogan { white-space: normal; }
-      .hero-strip { padding-top: 18px; gap: 16px; }
-      .hero-title { max-width: none; }
-      .hero-meta { grid-template-columns: 1fr; }
       .font-grid { gap: 18px; }
       .font-card { border-radius: 24px; }
       .font-info { padding: 18px; }
@@ -629,7 +544,6 @@
             <img src="images/logo.png" class="logo-img" alt="Logo FONT VIỆT LINH">
           </div>
           <div class="logo-info">
-            <span class="logo-kicker">Typography archive</span>
             <span class="logo-text">FONT VIỆT LINH</span>
             <span class="logo-slogan">Chữ Việt cho người Việt</span>
           </div>
@@ -648,28 +562,6 @@
         </div>
       </div>
     </header>
-
-    <section class="hero-strip">
-      <div class="hero-copy">
-        <div class="hero-line"></div>
-        <h1 class="hero-title">Bộ sưu tập font Việt hóa được trình bày tinh gọn và cao cấp hơn.</h1>
-        <p class="hero-desc">Giữ nguyên toàn bộ hệ thống lấy dữ liệu từ blog, giữ nguyên luồng mua font qua Messenger trên điện thoại và máy tính, nhưng nâng toàn bộ phần nhìn lên hướng biên tập, sang trọng và chuyên nghiệp hơn.</p>
-      </div>
-      <div class="hero-meta">
-        <div class="meta-card">
-          <span class="meta-label">Giao diện</span>
-          <span class="meta-value">3 chế độ hiển thị</span>
-        </div>
-        <div class="meta-card">
-          <span class="meta-label">Nguồn dữ liệu</span>
-          <span class="meta-value">Đồng bộ trực tiếp từ Blogger</span>
-        </div>
-        <div class="meta-card">
-          <span class="meta-label">Trải nghiệm</span>
-          <span class="meta-value">Tối giản, rõ ràng, ưu tiên chuyển đổi</span>
-        </div>
-      </div>
-    </section>
 
     <nav id="category-nav">
       <a onclick="loadByLabel('')" class="active">Tất cả</a>
@@ -734,13 +626,13 @@
 
         const btnTxt = isVip ? "Mua ngay" : "Tải ngay";
         const btnCls = isVip ? "btn-paid" : "btn-free";
-        const statusTxt = isVip ? "Premium" : "Miễn phí";
+        const statusTxt = isVip ? "VIP" : "Miễn phí";
         let img = "https://via.placeholder.com/400x250?text=Font+Viet+Linh";
         if (content.includes('<img')) {
           const m = content.match(/src="([^"]+)"/);
           if (m) img = m[1];
         }
-        container.innerHTML += `<div class="font-card">${isVip ? '<div class="badge-vip">Premium</div>' : ''}<div class="media-wrap"><img src="${img}" class="font-img" alt="${title}" loading="lazy"></div><div class="font-info"><div class="font-title">${title}</div><div class="font-meta-row"><div class="font-price">${priceText ? priceText : 'Miễn phí'}</div><div class="font-status">${statusTxt}</div></div><a href="${finalLink}" target="_blank" rel="noopener noreferrer" class="btn-download ${btnCls}">${btnTxt}</a></div></div>`;
+        container.innerHTML += `<div class="font-card">${isVip ? '<div class="badge-vip">VIP</div>' : ''}<div class="media-wrap"><img src="${img}" class="font-img" alt="${title}" loading="lazy"></div><div class="font-info"><div class="font-title">${title}</div><div class="font-meta-row"><div class="font-price">${priceText ? priceText : 'Miễn phí'}</div><div class="font-status">${statusTxt}</div></div><a href="${finalLink}" target="_blank" rel="noopener noreferrer" class="btn-download ${btnCls}">${btnTxt}</a></div></div>`;
       });
       startIndex += maxResults;
     }
