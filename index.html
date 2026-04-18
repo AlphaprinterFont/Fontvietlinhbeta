@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Font Việt Linh - Premium Fonts</title>
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <title>FONT VIỆT LINH - Chữ Việt cho người Việt</title>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root { 
             --vip-gold: #f4b400; --vip-red: #d93025;
@@ -25,40 +25,54 @@
         
         header { 
             background-image: var(--bg-paper); background-size: cover; background-position: center;
-            padding: 12px 25px; display: flex; align-items: center; justify-content: space-between; 
-            border-bottom: 2px solid #d2ccc0; position: sticky; top: 0; z-index: 100;
+            padding: 12px 20px; border-bottom: 2px solid #d2ccc0; position: sticky; top: 0; z-index: 100;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        .logo-area { display: flex; align-items: center; gap: 12px; flex: 1; }
-        .logo-img { height: 42px; width: auto; object-fit: contain; }
-        .logo-text { font-size: 20px; font-weight: 700; color: #333; white-space: nowrap; }
+        .header-top { display: flex; align-items: center; justify-content: space-between; gap: 15px; }
 
-        .search-area { flex: 2; display: flex; justify-content: center; }
-        .search-container { width: 100%; max-width: 400px; display: flex; border: 1px solid #d2ccc0; border-radius: 24px; padding: 7px 18px; background: rgba(255,255,255,0.8); }
+        .logo-area { display: flex; align-items: center; gap: 12px; }
+        .logo-img { height: 45px; width: auto; object-fit: contain; }
+        .logo-info { display: flex; flex-direction: column; }
+        .logo-text { font-size: 18px; font-weight: 800; color: #333; white-space: nowrap; line-height: 1.1; letter-spacing: 0.5px; }
+        .logo-slogan { font-size: 11px; font-style: italic; color: #555; margin-top: 3px; white-space: nowrap; }
+
+        .search-area { flex-grow: 1; display: flex; justify-content: center; margin: 0 15px; }
+        .search-container { width: 100%; max-width: 350px; display: flex; border: 1px solid #d2ccc0; border-radius: 20px; padding: 6px 15px; background: rgba(255,255,255,0.8); }
         .search-container input { border: none; outline: none; width: 100%; font-size: 14px; color: #000; background: transparent; }
 
-        .theme-area { flex: 1; display: flex; justify-content: flex-end; gap: 8px; }
+        .theme-area { display: flex; gap: 10px; }
         .theme-btn { width: 18px; height: 18px; border-radius: 50%; border: 1px solid #ccc; cursor: pointer; transition: 0.2s; }
         .btn-white { background: #ffffff; }
         .btn-paper { background: #e3dec6; }
         .btn-dark { background: #242526; }
 
+        @media (max-width: 600px) {
+            header { padding: 10px; }
+            .header-top { flex-wrap: wrap; }
+            .logo-area { flex: 1; }
+            .logo-img { height: 38px; }
+            .logo-text { font-size: 16px; }
+            .logo-slogan { font-size: 10px; }
+            .search-area { order: 3; width: 100%; margin: 10px 0 0 0; }
+            .search-container { max-width: 100%; }
+            .theme-area { order: 2; gap: 6px; }
+            .theme-btn { width: 16px; height: 16px; }
+        }
+
         nav { background: var(--nav-bg); padding: 12px; text-align: center; border-bottom: 1px solid var(--border); overflow-x: auto; white-space: nowrap; }
-        nav a { margin: 0 15px; text-decoration: none; color: var(--text-sub); font-size: 13px; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        nav a { margin: 0 12px; text-decoration: none; color: var(--text-sub); font-size: 13px; font-weight: 600; cursor: pointer; transition: 0.3s; }
         nav a:hover, nav a.active { color: #000; }
         .nav-external { color: var(--vip-red) !important; font-weight: 700; }
 
-        .font-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; padding: 30px; max-width: 1300px; margin: 0 auto; }
+        .font-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; padding: 25px; max-width: 1300px; margin: 0 auto; }
         .font-card { background: var(--card-bg); border-radius: 12px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border: 1px solid var(--border); position: relative; transition: 0.3s; backdrop-filter: blur(5px); }
         .font-card:hover { transform: translateY(-6px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
         
         .badge-vip { position: absolute; top: 12px; right: 12px; background: var(--vip-gold); color: #fff; padding: 5px 12px; border-radius: 6px; font-size: 10px; font-weight: 800; z-index: 1; }
         .font-img { width: 100%; height: 190px; object-fit: cover; background: #f8f9fa; border-bottom: 1px solid var(--border); }
         .font-info { padding: 20px; text-align: center; }
-        
         .font-title { font-weight: 600; font-size: 15px; color: var(--text-main); margin-bottom: 5px; line-height: 1.4; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
-        
         .font-price { color: var(--vip-red); font-weight: 700; font-size: 13px; margin-bottom: 15px; display: block; }
         .font-price span { text-transform: lowercase; }
 
@@ -76,19 +90,24 @@
 <body>
 
     <header>
-        <div class="logo-area">
-            <img src="images/logo.png" class="logo-img" alt="Logo Font Việt Linh">
-            <span class="logo-text">Font Việt Linh</span>
-        </div>
-        <div class="search-area">
-            <div class="search-container">
-                <input type="text" id="searchInput" placeholder="Tìm kiếm font chữ..." onkeypress="handleSearch(event)">
+        <div class="header-top">
+            <div class="logo-area">
+                <img src="images/logo.png" class="logo-img" alt="Logo FONT VIỆT LINH">
+                <div class="logo-info">
+                    <span class="logo-text">FONT VIỆT LINH</span>
+                    <span class="logo-slogan">Chữ Việt cho người Việt</span>
+                </div>
             </div>
-        </div>
-        <div class="theme-area">
-            <div class="theme-btn btn-white" onclick="setTheme('white')"></div>
-            <div class="theme-btn btn-paper" onclick="setTheme('paper')"></div>
-            <div class="theme-btn btn-dark" onclick="setTheme('dark')"></div>
+            <div class="search-area">
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Tìm font..." onkeypress="handleSearch(event)">
+                </div>
+            </div>
+            <div class="theme-area">
+                <div class="theme-btn btn-white" onclick="setTheme('white')"></div>
+                <div class="theme-btn btn-paper" onclick="setTheme('paper')"></div>
+                <div class="theme-btn btn-dark" onclick="setTheme('dark')"></div>
+            </div>
         </div>
     </header>
 
@@ -131,6 +150,8 @@
             const container = document.getElementById('font-container');
             if (!data.feed.entry) { document.getElementById('load-more-btn').innerText = "Hết dữ liệu"; return; }
             
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
             data.feed.entry.forEach(post => {
                 const title = post.title.$t;
                 const blogLink = post.link.find(l => l.rel === 'alternate').href;
@@ -139,28 +160,23 @@
                 
                 let priceText = "";
                 let isPaid = false;
-
-                const priceMatch = content.match(/(Giá|Gia|Phí Việt hóa|Phí Việt Hóa):\s*([0-9.kđĐ]+)/i);
+                const priceMatch = content.match(/(Giá|Gia|Phí Việt hóa|Phí Việt Hoá):\s*([0-9.kđĐ]+)/i);
                 if (priceMatch) {
                     isPaid = true;
                     priceText = "Phí Việt Hoá: <span>" + priceMatch[2].toLowerCase() + "</span>";
                 }
 
-                // XỬ LÝ LINK CHÍNH XÁC: Loại bỏ các thẻ HTML dính liền
                 let downloadLink = "";
-                // Sử dụng [^<"\s]+ để dừng lại ngay khi gặp dấu < (thẻ HTML), dấu ngoặc kép hoặc khoảng trắng
                 const driveMatch = content.match(/https:\/\/drive\.google\.com\/[^<"\s]+/);
                 const bitlyMatch = content.match(/https:\/\/bit\.ly\/[^<"\s]+/);
-                
-                if (driveMatch) {
-                    downloadLink = driveMatch[0].replace(/&amp;/g, '&');
-                } else if (bitlyMatch) {
-                    downloadLink = bitlyMatch[0];
-                }
+                if (driveMatch) { downloadLink = driveMatch[0].replace(/&amp;/g, '&'); }
+                else if (bitlyMatch) { downloadLink = bitlyMatch[0]; }
 
                 const isVip = labels.some(l => l === 'FontTraPhi' || l === 'FontVip' || l.toUpperCase().includes('VIP')) || isPaid;
                 
-                let finalLink = isVip ? `https://m.me/FontVietLinh?text=Tôi muốn mua font: ${title}` : (downloadLink ? downloadLink : blogLink);
+                // CẬP NHẬT LOGIC: Luôn dùng target="_blank" để mở tab mới
+                let finalLink = isVip ? (isMobile ? "https://m.me/FontVietLinh" : "https://www.facebook.com/messages/t/FontVietLinh") : (downloadLink ? downloadLink : blogLink);
+                
                 const btnTxt = isVip ? "Mua ngay" : "Tải ngay";
                 const btnCls = isVip ? "btn-paid" : "btn-free";
 
@@ -170,16 +186,7 @@
                     if (m) img = m[1];
                 }
 
-                container.innerHTML += `
-                    <div class="font-card">
-                        ${isVip ? '<div class="badge-vip">PREMIUM</div>' : ''}
-                        <img src="${img}" class="font-img" alt="${title}" loading="lazy">
-                        <div class="font-info">
-                            <div class="font-title">${title}</div>
-                            <div class="font-price">${priceText ? priceText : 'Miễn phí'}</div>
-                            <a href="${finalLink}" target="_blank" class="btn-download ${btnCls}">${btnTxt}</a>
-                        </div>
-                    </div>`;
+                container.innerHTML += `<div class="font-card">${isVip ? '<div class="badge-vip">PREMIUM</div>' : ''}<img src="${img}" class="font-img" alt="${title}" loading="lazy"><div class="font-info"><div class="font-title">${title}</div><div class="font-price">${priceText ? priceText : 'Miễn phí'}</div><a href="${finalLink}" target="_blank" class="btn-download ${btnCls}">${btnTxt}</a></div></div>`;
             });
             startIndex += maxResults;
         }
