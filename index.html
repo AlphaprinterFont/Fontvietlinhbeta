@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root { 
-            /* GIAO DIỆN 1 (THAY THẾ WHITE): Xanh dương & Cam */
+            /* GIAO DIỆN 1 (WHITE) */
             --vip-gold: #FF8040; 
             --vip-red: #001BB7;
             --bg: #F5F1DC; 
@@ -16,32 +16,40 @@
             --text-sub: #0046FF; 
             --border: #0046FF; 
             --nav-bg: #ffffff;
+            /* Màu nút Tải Ngay */
+            --btn-free-bg: #0046FF; 
+            --btn-free-text: #ffffff;
         }
 
         [data-theme='paper'] {
-    --vip-gold: #F77F00;    /* Dùng cho huy hiệu Premium */
-    --vip-red: #003049;     /* Dùng cho giá tiền */
-    --bg: #EED9B9;          /* Nền toàn trang */
-    --card-bg: #FFEDCE;     /* Nền của ô chứa font */
-    --text-main: #F77F00;   /* Tiêu đề và nội dung chính trên nền xanh */
-    --text-sub: #FFFFFF;    /* Các thông tin phụ */
-    --border: #F77F00;      /* Đường viền card và khung tìm kiếm */
-    --nav-bg: #132440;      /* Để lộ nền xanh của trang */
-    --bg-paper: none;
-}
+            /* GIAO DIỆN 2 (PAPER) */
+            --vip-gold: #F77F00;
+            --vip-red: #003049;
+            --bg: #EED9B9;
+            --card-bg: #FFEDCE;
+            --text-main: #F77F00;
+            --text-sub: #FFFFFF;
+            --border: #F77F00;
+            --nav-bg: #132440;
+            /* Màu nút Tải Ngay */
+            --btn-free-bg: #003049;
+            --btn-free-text: #ffffff;
+        }
 
         [data-theme='dark'] {
-    /* GIAO DIỆN 3 (THAY THẾ DARK): Xanh Denim & Đỏ kem */
-    --vip-gold: #DC3C22;    /* Đỏ: Dùng cho huy hiệu Premium */
-    --vip-red: #F77F00;     /* Kem đậm: Dùng cho giá tiền */
-    --bg: #000000;          /* Xanh Denim: Nền toàn trang */
-    --card-bg: #FBF5DE;     /* Kem sáng: Nền của ô chứa font */
-    --text-main: #DC3C22;   /* Trắng: Tiêu đề và nội dung chính trên nền xanh */
-    --text-sub: #FFFFFF;    /* Trắng: Các thông tin phụ */
-    --border: #3D74B6;      /* Kem đậm: Đường viền card và khung tìm kiếm */
-    --nav-bg: #132440;  /* Trong suốt: Để lộ nền xanh của trang */
-    --bg-paper: none;
-}
+            /* GIAO DIỆN 3 (DARK) */
+            --vip-gold: #DC3C22;
+            --vip-red: #F77F00;
+            --bg: #000000;
+            --card-bg: #FBF5DE;
+            --text-main: #DC3C22;
+            --text-sub: #FFFFFF;
+            --border: #3D74B6;
+            --nav-bg: #132440;
+            /* Màu nút Tải Ngay */
+            --btn-free-bg: #3D74B6;
+            --btn-free-text: #ffffff;
+        }
 
         body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--bg); color: var(--text-main); margin: 0; padding: 0; transition: 0.3s; }
         
@@ -66,7 +74,7 @@
         .theme-area { display: flex; gap: 10px; }
         .theme-btn { width: 18px; height: 18px; border-radius: 50%; border: 1px solid #ccc; cursor: pointer; transition: 0.2s; }
         .btn-white { background: #001BB7; }
-        .btn-paper { background: #FFD400; }
+        .btn-paper { background: #F77F00; }
         .btn-dark { background: #3D74B6; }
 
         @media (max-width: 600px) {
@@ -98,12 +106,22 @@
         .font-price { color: var(--vip-red); font-weight: 700; font-size: 13px; margin-bottom: 15px; display: block; }
         .font-price span { text-transform: lowercase; }
 
+        /* Cập nhật nút Tải ngay không còn trong suốt */
         .btn-download { 
-            background: var(--bg);
-            color: var(--text-main); padding: 10px 20px; border-radius: 25px; text-decoration: none; 
+            background: var(--btn-free-bg);
+            color: var(--btn-free-text) !important; 
+            padding: 10px 20px; border-radius: 25px; text-decoration: none; 
             font-size: 13px; font-weight: 700; display: inline-block; width: 85%; border: 1px solid var(--border);
+            transition: 0.2s;
         }
-        .btn-paid { background: var(--vip-red) !important; color: #fff !important; border: none !important; }
+        .btn-download:hover { opacity: 0.9; transform: scale(1.05); }
+
+        /* Nút Mua ngay (VIP) */
+        .btn-paid { 
+            background: var(--vip-gold) !important; 
+            color: #ffffff !important; 
+            border: none !important; 
+        }
 
         .load-more-container { text-align: center; padding: 50px; }
         #load-more-btn { background: var(--card-bg); border: 2px solid var(--border); color: var(--text-main); padding: 12px 45px; border-radius: 30px; cursor: pointer; font-weight: 700; }
@@ -158,7 +176,6 @@
             document.documentElement.setAttribute('data-theme', theme);
             localStorage.setItem('font-linh-theme', theme);
         }
-        // Mặc định load theme đã lưu hoặc theme trắng mới
         setTheme(localStorage.getItem('font-linh-theme') || 'white');
 
         function fetchPosts() {
