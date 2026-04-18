@@ -7,25 +7,46 @@
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root { 
-            --vip-gold: #f4b400; --vip-red: #d93025;
-            --bg: #ffffff; --card-bg: #ffffff; --text-main: #202124; --text-sub: #5f6368; --border: #dfe1e5; --nav-bg: #ffffff;
-            --bg-paper: url('images/bg-paper.jpg'); 
+            /* GIAO DIỆN 1 (THAY THẾ WHITE): Xanh dương & Cam */
+            --vip-gold: #FF8040; 
+            --vip-red: #001BB7;
+            --bg: #F5F1DC; 
+            --card-bg: #ffffff; 
+            --text-main: #001BB7; 
+            --text-sub: #0046FF; 
+            --border: #0046FF; 
+            --nav-bg: #ffffff;
         }
 
         [data-theme='paper'] {
-            --bg: #fdfcf5; --card-bg: rgba(255, 255, 255, 0.6); --text-main: #3e3a35; --nav-bg: transparent; --border: #d2ccc0;
-            background-image: var(--bg-paper); background-attachment: fixed;
+            /* GIAO DIỆN 2 (THAY THẾ PAPER): Vàng & Cam rực rỡ */
+            --bg: #FFD400; 
+            --card-bg: #FFC300; 
+            --text-main: #FF5F00; 
+            --text-sub: #FF8C00; 
+            --border: #FF8C00; 
+            --nav-bg: #FFD400;
+            --vip-gold: #FF5F00;
+            --vip-red: #FF8C00;
         }
 
         [data-theme='dark'] {
-            --bg: #121212; --card-bg: #1e1e1e; --text-main: #e4e6eb; --text-sub: #b0b3b8; --border: #333; --nav-bg: #1a1a1a;
+            /* GIAO DIỆN 3 (THAY THẾ DARK): Xanh Denim & Đỏ kem */
+            --bg: #3D74B6; 
+            --card-bg: #FBF5DE; 
+            --text-main: #DC3C22; 
+            --text-sub: #EAC8A6; 
+            --border: #EAC8A6; 
+            --nav-bg: #3D74B6;
+            --vip-gold: #DC3C22;
+            --vip-red: #3D74B6;
         }
 
         body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--bg); color: var(--text-main); margin: 0; padding: 0; transition: 0.3s; }
         
         header { 
-            background-image: var(--bg-paper); background-size: cover; background-position: center;
-            padding: 12px 20px; border-bottom: 2px solid #d2ccc0; position: sticky; top: 0; z-index: 100;
+            background: var(--nav-bg);
+            padding: 12px 20px; border-bottom: 2px solid var(--border); position: sticky; top: 0; z-index: 100;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
@@ -34,18 +55,18 @@
         .logo-area { display: flex; align-items: center; gap: 12px; }
         .logo-img { height: 45px; width: auto; object-fit: contain; }
         .logo-info { display: flex; flex-direction: column; }
-        .logo-text { font-size: 18px; font-weight: 800; color: #333; white-space: nowrap; line-height: 1.1; letter-spacing: 0.5px; }
-        .logo-slogan { font-size: 11px; font-style: italic; color: #555; margin-top: 3px; white-space: nowrap; }
+        .logo-text { font-size: 18px; font-weight: 800; color: var(--text-main); white-space: nowrap; line-height: 1.1; letter-spacing: 0.5px; }
+        .logo-slogan { font-size: 11px; font-style: italic; color: var(--text-sub); margin-top: 3px; white-space: nowrap; }
 
         .search-area { flex-grow: 1; display: flex; justify-content: center; margin: 0 15px; }
-        .search-container { width: 100%; max-width: 350px; display: flex; border: 1px solid #d2ccc0; border-radius: 20px; padding: 6px 15px; background: rgba(255,255,255,0.8); }
-        .search-container input { border: none; outline: none; width: 100%; font-size: 14px; color: #000; background: transparent; }
+        .search-container { width: 100%; max-width: 350px; display: flex; border: 1px solid var(--border); border-radius: 20px; padding: 6px 15px; background: var(--card-bg); }
+        .search-container input { border: none; outline: none; width: 100%; font-size: 14px; color: var(--text-main); background: transparent; }
 
         .theme-area { display: flex; gap: 10px; }
         .theme-btn { width: 18px; height: 18px; border-radius: 50%; border: 1px solid #ccc; cursor: pointer; transition: 0.2s; }
-        .btn-white { background: #ffffff; }
-        .btn-paper { background: #e3dec6; }
-        .btn-dark { background: #242526; }
+        .btn-white { background: #001BB7; }
+        .btn-paper { background: #FFD400; }
+        .btn-dark { background: #3D74B6; }
 
         @media (max-width: 600px) {
             header { padding: 10px; }
@@ -62,7 +83,7 @@
 
         nav { background: var(--nav-bg); padding: 12px; text-align: center; border-bottom: 1px solid var(--border); overflow-x: auto; white-space: nowrap; }
         nav a { margin: 0 12px; text-decoration: none; color: var(--text-sub); font-size: 13px; font-weight: 600; cursor: pointer; transition: 0.3s; }
-        nav a:hover, nav a.active { color: #000; }
+        nav a:hover, nav a.active { color: var(--text-main); text-decoration: underline; }
         .nav-external { color: var(--vip-red) !important; font-weight: 700; }
 
         .font-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; padding: 25px; max-width: 1300px; margin: 0 auto; }
@@ -77,14 +98,14 @@
         .font-price span { text-transform: lowercase; }
 
         .btn-download { 
-            background-image: var(--bg-paper); background-size: cover;
-            color: #333; padding: 10px 20px; border-radius: 25px; text-decoration: none; 
-            font-size: 13px; font-weight: 700; display: inline-block; width: 85%; border: 1px solid #d2ccc0;
+            background: var(--bg);
+            color: var(--text-main); padding: 10px 20px; border-radius: 25px; text-decoration: none; 
+            font-size: 13px; font-weight: 700; display: inline-block; width: 85%; border: 1px solid var(--border);
         }
-        .btn-paid { background-image: none !important; background: var(--vip-red) !important; color: #fff !important; border: none !important; }
+        .btn-paid { background: var(--vip-red) !important; color: #fff !important; border: none !important; }
 
         .load-more-container { text-align: center; padding: 50px; }
-        #load-more-btn { background-image: var(--bg-paper); background-size: cover; border: 2px solid #d2ccc0; color: #333; padding: 12px 45px; border-radius: 30px; cursor: pointer; font-weight: 700; }
+        #load-more-btn { background: var(--card-bg); border: 2px solid var(--border); color: var(--text-main); padding: 12px 45px; border-radius: 30px; cursor: pointer; font-weight: 700; }
     </style>
 </head>
 <body>
@@ -136,7 +157,8 @@
             document.documentElement.setAttribute('data-theme', theme);
             localStorage.setItem('font-linh-theme', theme);
         }
-        setTheme(localStorage.getItem('font-linh-theme') || 'paper');
+        // Mặc định load theme đã lưu hoặc theme trắng mới
+        setTheme(localStorage.getItem('font-linh-theme') || 'white');
 
         function fetchPosts() {
             const script = document.createElement('script');
@@ -174,7 +196,6 @@
 
                 const isVip = labels.some(l => l === 'FontTraPhi' || l === 'FontVip' || l.toUpperCase().includes('VIP')) || isPaid;
                 
-                // CẬP NHẬT LOGIC: Luôn dùng target="_blank" để mở tab mới
                 let finalLink = isVip ? (isMobile ? "https://m.me/FontVietLinh" : "https://www.facebook.com/messages/t/FontVietLinh") : (downloadLink ? downloadLink : blogLink);
                 
                 const btnTxt = isVip ? "Mua ngay" : "Tải ngay";
